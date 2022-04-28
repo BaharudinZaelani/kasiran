@@ -1,24 +1,12 @@
 <?php 
 include 'app/init.php';
-
+use Carbon\Carbon;
 print "====================================";
 print "\n";
 print "| Kasiran - Setup";
 print "\n";
 print "====================================\n";
 $db = new Database();
-
-// $filename = 'index.php';
-
-// $functions = [
-// 	'is_readable',
-// 	'is_writable',
-// 	'is_executable'
-// ];
-
-// foreach ($functions as $f) {
-// 	echo $f($filename) ? 'The file ' . $filename . $f : '';
-// }
 
 // tabel user
 $tabel_user = "CREATE TABLE IF NOT EXISTS user (
@@ -63,6 +51,11 @@ $tabel_produk = "CREATE TABLE IF NOT EXISTS product (
 
 
 $key = end($argv);
+// create database
+if ($key == '--create-db') {
+    $db = new Database();
+    print "Database created!\n";
+}
 // drop database
 if($key == 'dropall'){
     $db->query('DROP DATABASE ' . DB_NAME);
@@ -83,6 +76,9 @@ if( $key == 'start' ){
     $db->query($tabel_produk);
     $db->execute();
     echo  "[Kasiran] Table product has been created\n";
+
+    // seed data
+    new User('', '', 'Admin', 'admin', 'admin@gmail.com', 'admin', '081234567890', 'Admin', 'Jl. Kebon Jeruk No. 1', Carbon::now(), '');
 
     // start server
     $command = "php -S ". BASE ." -t " . __DIR__ ;

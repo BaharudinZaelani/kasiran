@@ -278,7 +278,9 @@ if( isset($_POST['logout']) ){
                 <div class="head">
                     <img class="rounded" src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" width="30" height="30">
                     <div class="username">
-                        <?= $_SESSION['admin']['email']?>
+                        <?php if( isset($_SESSION['admin']) ) : ?>
+                            <?= $_SESSION['admin']['email']?>
+                        <?php endif;?>
                     </div>
                 </div>
                 <div class="sub-navbar hide">
@@ -288,7 +290,9 @@ if( isset($_POST['logout']) ){
                                 <img class="rounded" src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" width="80" height="80">
                             </div>
                             <div class="sub-nav-title">
-                                <h3><?= $_SESSION['admin']['name']?></h3>
+                                <?php if( isset($_SESSION['admin']) ) : ?>
+                                    <h3><?= $_SESSION['admin']['name']?></h3>
+                                <?php endif;?>
                             </div>
                         </div>
                     </div>

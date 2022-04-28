@@ -17,6 +17,6 @@ define("BASE", $uri);
 define("HOST", "localhost");
 define("USER", "root");
 define("PASS", "");
-define("DB_NAME", "kasir_one");
+define("DB_NAME", "kasiran");
 
 define("NAME", "KASIRAN");
