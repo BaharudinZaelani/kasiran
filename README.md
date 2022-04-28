@@ -11,8 +11,11 @@ cocok untuk usaha / organisasi kecil dan menengah.
 # install dependencies
 $ composer install
 
-# serve with hot reload at 127.0.0.1:8080
-# With create database and all table
+# for create database
+$ php kasiran --create-db
+
+# serve with hot reload at http://127.0.0.1:3000/
+# With create table
 $ php kasiran start
 
 ```
