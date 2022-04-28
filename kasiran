@@ -1,0 +1,78 @@
+<?php 
+include 'app/init.php';
+
+print "====================================";
+print "\n";
+print "| Kasiran - Setup";
+print "\n";
+print "====================================\n";
+$db = new Database();
+
+// tabel user
+$tabel_user = "CREATE TABLE IF NOT EXISTS user (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    image TEXT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    no_tlp VARCHAR(255) NOT NULL,
+    role ENUM('Admin', 'Kasir') NOT NULL,
+    alamat VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)";
+
+// tabel Backup Log
+$tabel_backup_log = "CREATE TABLE IF NOT EXISTS backup_log (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    tabel_name VARCHAR(255) NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    backup_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)";
+
+// tabel produk
+$tabel_produk = "CREATE TABLE IF NOT EXISTS product (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  image TEXT NOT NULL,
+  type ENUM('Standard') NOT NULL,
+  category ENUM('General') NOT NULL,
+  quantity INT(11) NOT NULL,
+  tax INT(11) NOT NULL,
+  method ENUM('Cash', 'Debit', 'Credit') NOT NULL,
+  cost INT(11) NOT NULL,
+  price INT(11) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+)";
+
+
+$key = end($argv);
+// drop database
+if($key == 'dropall'){
+    $db->query('DROP DATABASE ' . DB_NAME);
+    $db->execute();
+    echo  "[Kasiran] Database " . DB_NAME . " has been deleted\n";
+}
+
+// create all database and table and run server
+if( $key == 'start' ){
+    $db->query($tabel_user);
+    $db->execute();
+    echo  "[Kasiran] Table user has been created\n";
+
+    $db->query($tabel_backup_log);
+    $db->execute();
+    echo  "[Kasiran] Table backup_log has been created\n";
+
+    $db->query($tabel_produk);
+    $db->execute();
+    echo  "[Kasiran] Table product has been created\n";
+
+    // start server
+    $command = "php -S " . BASE;
+    shell_exec($command);
+}

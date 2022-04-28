@@ -1,0 +1,20 @@
+{
+    "name": "bahar/kasiran",
+    "description": "Website Point of Sale",
+    "license": "GNU",
+    "autoload": {
+        "psr-4": {
+            "Bahar\\Kasiran\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Zaelani",
+            "email": "bahar32harz@gmail.com"
+        }
+    ],
+    "require": {
+        "nesbot/carbon": "^2.57",
+        "symfony/process": "^6.0"
+    }
+}

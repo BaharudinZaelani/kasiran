@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@200&display=swap');
+*{
+    transition: 0.4s;
+    font-family: 'Exo 2', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-image: url('../img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+form {
+    display: inline;
+}
+
+/* layout */
+.grid.center {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.scroll {
+    overflow-y: scroll !important;
+    height: 90vh;
+}
+
+/* card */
+.card-wrp {
+    width: 100%;
+}
+.card-wrp .card {
+    width: 100%;
+    height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background-color: #f0f0f0;
+}
+.card-wrp .card .card-header {
+    height: 20px;
+    display: grid;
+    align-items: center;
+    padding: 12px;
+}
+.card-wrp .card .card-body {
+    height: calc(100% - 50px);
+    overflow: auto;
+    background-color: #fff;
+    padding: 12px;
+}
+.card-wrp .card .card-footer {
+    height: 20px;
+    display: grid;
+    align-items: center;
+    padding: 12px;
+}
+
+/* grid */
+.row.col-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 12px;
+}
+
+/* color */
+.primary {
+    background-color: #0000FF !important;
+    color: #fff;
+}
+
+/* tabel */
+.tabel {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.tabel th, .tabel td {
+    text-align: left;
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+/* style */
+.rounded {
+    border-radius: 50px;
+}
+.italic {
+    font-style: italic;
+}
+.danger {
+    background-color: #fc4242 !important;
+}
+.hr {
+    margin: 12px 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.219);
+}
+.center {
+    text-align: center !important;
+}
+.alert {
+    padding: 12px;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    margin-bottom: 12px;
+}
+.mt-1 {
+    margin-top: 12px;
+}
+.p-1 {
+    padding: 12px;
+}
+.text-light {
+    color: #fff;
+}
+.text-dark {
+    color: #000;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+.text-left {
+    text-align: left;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+/* button/input */
+.btn-sm {
+    padding: 5px 8px !important;
+    transform: scale(0.9);
+}
+.input-group {
+    margin-bottom: 12px;
+}
+.input-group label{
+    display: block;
+    margin-bottom: 12px;
+}
+.input-group input, .input-group textarea, .input-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 50px;
+}
+.input-submit button, .input-submit a {
+    text-decoration: none;
+    opacity: 0.8;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.input-submit button:hover, .input-submit a:hover {
+    opacity: 1;
+}
