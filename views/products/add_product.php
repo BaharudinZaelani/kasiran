@@ -18,7 +18,7 @@ if( isset($_POST['tambah']) ) {
     $upload = $file->uploadImage($_FILES['image']['name'], $_FILES['image']['type'], $_FILES['image']['size'], $_FILES['image']['tmp_name']);
     $image = $upload['to'];
 
-    $query = "INSERT INTO product (name, image, type, category, quantity, tax, method, cost, price, created, updated) VALUES ('$name', '$image', '$type', '$category', '$quantity', '$tax', '$method', '$cost', '$price', '$created', NULL)";
+    $query = "INSERT INTO product (name, image, type, category, quantity, tax, method, cost, price, created_at, updated_at) VALUES ('$name', '$image', '$type', '$category', '$quantity', '$tax', '$method', '$cost', '$price', '$created', NULL)";
     $db->query($query);
     if( $db->execute() AND $upload['status'] ) {
         echo '<script>
@@ -110,8 +110,9 @@ if( isset($_POST['tambah']) ) {
                         <div class="input-group">
                             <label for="method">Method</label>
                             <select name="method" id="method">
-                                <option value="Inclusive">Inclusive</option>
-                                <option value="Exclusive">Exclusive</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Debit">Debit</option>
+                                <option value="Credit">Credit</option>
                             </select>
                         </div>
                     </div>

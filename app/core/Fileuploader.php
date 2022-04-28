@@ -44,7 +44,7 @@ class Fileuploader {
     public function uploadDatabase($fileName, $fileType, $fileSize, $fileTmpName, $tabel) {
         $msg = '';
         $status = false;
-        $targetFile = 'migrate/' . basename($tabel . '.php');
+        $targetFile = 'migrate/' . basename($tabel . '.sql');
         // if file exist
         if( file_exists($targetFile) ) {
             unlink($targetFile);
@@ -53,8 +53,8 @@ class Fileuploader {
         $fn = $fileName;
         $ff = explode('.', $fn);
         $fr = end($ff); 
-        if( $fr != 'php' ) {
-            $msg = 'File harus berupa file php';
+        if( $fr != 'sql' ) {
+            $msg = 'File harus berupa file sql';
             $status = false;
         }else {
             // check if this php file
@@ -90,6 +90,32 @@ class Fileuploader {
         $file = 'migrate/product.php';
         if( file_exists($file) ) {
             unlink($file);
+        }
+    }
+
+    // sql import 
+    public function sqlImport($fileName) {
+        global $db;
+        $db->query("DROP TABLE product");
+        $db->execute();
+        $conn = mysqli_connect(HOST, USER, PASS, DB_NAME);
+
+        $query = '';
+        $sqlScript = file($fileName);
+        foreach ($sqlScript as $line)	{
+            
+            $startWith = substr(trim($line), 0 ,2);
+            $endWith = substr(trim($line), -1 ,1);
+            
+            if (empty($line) || $startWith == '--' || $startWith == '/*' || $startWith == '//') {
+                continue;
+            }
+                
+            $query = $query . $line;
+            if ($endWith == ';') {
+                mysqli_query($conn,$query) or die('<div class="error-response sql-import-response">Problem in executing the SQL query <b>' . $query. '</b></div>');
+                $query= '';		
+            }
         }
     }
 

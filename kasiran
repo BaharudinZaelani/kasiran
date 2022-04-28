@@ -46,6 +46,7 @@ $tabel_produk = "CREATE TABLE IF NOT EXISTS product (
   cost INT(11) NOT NULL,
   price INT(11) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 )";
 
@@ -79,8 +80,11 @@ if( $key == 'start' ){
 
     // seed data
     new User('', '', 'Admin', 'admin', 'admin@gmail.com', 'admin', '081234567890', 'Admin', 'Jl. Kebon Jeruk No. 1', Carbon::now(), '');
+    if( !file_exists('migrate') ){
+        mkdir('migrate');
+    }
 
     // start server
-    $command = "php -S ". BASE ." -t " . __DIR__ ;
+    $command = "php -S ". SERVER ." -t " . __DIR__ ;
     shell_exec($command);
 }

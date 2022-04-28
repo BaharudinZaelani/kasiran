@@ -128,8 +128,18 @@ form {
 .text-uppercase {
     text-transform: uppercase;
 }
-
+.success {
+    background-color: #66ce66 !important;
+}
 /* button/input */
+.btn {
+    border: none;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background-color: #0000FF;
+    color: #fff;
+    cursor: pointer;
+}
 .btn-sm {
     padding: 5px 8px !important;
     transform: scale(0.9);

@@ -14,7 +14,7 @@ if( isset($_POST['upload']) ){
     $fileTmpName = $_FILES['file']['tmp_name'];
 
     $cek = $file->uploadDatabase($fileName, $fileType, $fileSize, $fileTmpName, 'product');
-    $query = "INSERT INTO `backup_log` (`id`, `tabel_name`, `filename`, `created`) VALUES (NULL, 'product', '". $fileName ."', '". Carbon::now() ."');";
+    $query = "INSERT INTO `backup_log` (`id`, `tabel_name`, `filename`, `backup_date`) VALUES (NULL, 'product', '". $fileName ."', '". Carbon::now() ."');";
     $db->query($query);
     $db->execute();
     if( $cek['status'] ){
@@ -29,6 +29,20 @@ if( isset($_POST['upload']) ){
 // delete backup product
 if( isset($_POST['deleteProduct']) ){
     $file->deleteProduct();
+}
+
+// pulihkan product
+if( isset($_POST['pulihkan']) ){
+    $file->sqlImport('migrate/product.sql');
+    echo '<script>
+            Swal.fire({
+                title: "Success!",
+                text: "Data berhasil dipulihkan!",
+                icon: "success",
+                confirmButtonText: "OKE !",
+                confirmButtonColor: "#2b982b"
+            })
+        </script>';
 }
 ?>
 <!-- sweat alert -->
@@ -76,24 +90,38 @@ if( isset($_POST['deleteProduct']) ){
                             <th>Tahun</th>
                             <th>Bulan</th>
                             <th>Tanggal</th>
+                            <th>Aksi</th>
                         </tr>
-                        <?php foreach( $produk as $row ) : ?>
+                        <?php
+                            $i = 0;
+                            foreach( $produk as $row ) : 
+                        ?>
                             <tr>
                                 <td><?= $row['filename'] ?></td>
-                                <?php $dt = Carbon::parse($row['created']); ?>
+                                <?php $dt = Carbon::parse($row['backup_date']); ?>
                                 <td><?= $dt->year ?></td>
                                 <td><?= $dt->month ?></td>
                                 <td><?= $dt->day ?></td>
+                                <td>
+                                    <?php if( $i == 0 ) : ?>
+                                        <?php if( file_exists('migrate/product.sql') ) : ?>
+                                            <form method="post">
+                                                <button name="pulihkan" class="btn success">Pulihkan</button>
+                                            </form>
+                                        <?php endif; ?>
+                                    <?php endif;?>
+                                </td>
+                                <?php $i++ ?>
                             </tr>    
                         <?php endforeach; ?>
                     </table>
                 </div>
-                <?php if( file_exists('migrate/product.php') ) : ?>
+                <?php if( file_exists('migrate/product.sql') ) : ?>
                     <div class="alert">
                         <h3>Tersedia Backupan !</h3>
                         <div>Apakah anda ingin menambahakan data yang sudah ada sebelumnya ?</div>
                         <div>Jika tidak silahkan anda import kembali file backupan.</div>
-                        <div class="p-1 danger text-light mt-1"><i>Catatan : Data akan diduplikasi jika data sudah ada</i></div>
+                        <div class="p-1 danger text-light mt-1"><i>Catatan : Beberapa gambar produk mungkin akan dihapus !</i></div>
                         <form method="post">
                             <div class="input-submit mt-1">
                                 <button class="success">

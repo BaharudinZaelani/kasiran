@@ -10,8 +10,8 @@ if( isset($_SERVER['REQUEST_SCHEME']) ){
 }else {
     $uri = '127.0.0.1:3000'; // or localhost:3000
 }
-
-define("BASE", $uri); 
+define("SERVER", $uri);
+define("BASE", "http://" . $uri); 
 
 // Database Config
 define("HOST", "localhost");
@@ -20,3 +20,5 @@ define("PASS", "");
 define("DB_NAME", "kasiran");
 
 define("NAME", "KASIRAN");
+
+// aplication setup
