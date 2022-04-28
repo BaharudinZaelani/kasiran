@@ -8,6 +8,18 @@ print "\n";
 print "====================================\n";
 $db = new Database();
 
+// $filename = 'index.php';
+
+// $functions = [
+// 	'is_readable',
+// 	'is_writable',
+// 	'is_executable'
+// ];
+
+// foreach ($functions as $f) {
+// 	echo $f($filename) ? 'The file ' . $filename . $f : '';
+// }
+
 // tabel user
 $tabel_user = "CREATE TABLE IF NOT EXISTS user (
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -73,6 +85,6 @@ if( $key == 'start' ){
     echo  "[Kasiran] Table product has been created\n";
 
     // start server
-    $command = "php -S " . BASE;
+    $command = "php -S ". BASE ." -t " . __DIR__ ;
     shell_exec($command);
 }

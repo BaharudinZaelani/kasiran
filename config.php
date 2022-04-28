@@ -8,7 +8,7 @@ $uri = '';
 if( isset($_SERVER['REQUEST_SCHEME']) ){
     $uri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 }else {
-    $uri = '127.0.0.1:8080'; // or localhost:3000
+    $uri = '127.0.0.1:3000'; // or localhost:3000
 }
 
 define("BASE", $uri); 
@@ -17,6 +17,6 @@ define("BASE", $uri);
 define("HOST", "localhost");
 define("USER", "root");
 define("PASS", "");
-define("DB_NAME", "kasiran");
+define("DB_NAME", "kasir_one");
 
 define("NAME", "KASIRAN");

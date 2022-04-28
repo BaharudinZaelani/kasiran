@@ -14,18 +14,18 @@ class App {
         if($param === "auth"){
             if( isset($_SESSION['admin']) ){
                 if ( $file !== 'index.php' ) {
-                    header("Location: " . BASE . 'index.php');
+                    header("Location: " . '/index.php');
                 }
             }else {
-                header("Location: " . BASE . 'login.php');
+                header("Location: " . '/login.php');
             }
         }elseif($param === "login"){
             if( !isset($_SESSION['admin']) ){
                 if ( $file !== 'login.php' ) {
-                    header("Location: " . BASE . 'login.php');
+                    header("Location: " . '/login.php');
                 }
             }else {
-                header("Location: " . BASE . 'index.php');
+                header("Location: " . '/index.php');
             }
         }
     }
@@ -33,7 +33,7 @@ class App {
     public function logout(){
         unset($_SESSION['admin']);
         session_destroy();
-        header("Location: " . BASE . 'login.php');
+        header("Location: /login.php");
     }
 
 }

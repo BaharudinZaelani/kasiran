@@ -6,7 +6,6 @@ $app->auth('auth');
 if( isset($_POST['logout']) ){
     $app->logout();
 }
-
 ?>
 <?php include 'views/header.php'; ?>
 <style>
