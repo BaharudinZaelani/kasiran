@@ -27,6 +27,16 @@ $ php kasiran serve
 - Kasir
 
 ## Feature Aplication
-- Login sebagai Admin
-- Login sebagai Kasir
-- CRUD Produk
+
+beberapa fitur dari aplikasi Kasiran
+
+**Login**
+ - Login sebagai Admin
+ - Login sebagai Kasir
+
+**Custom Tema Dalam Aplikasi**
+ - Custom Color (Mengatur warna website sesuai keinginan)
+ - Theme (Memilih langsung tema yang sudah disediakan)
+   - Dark 
+   - Pink
+   - Tea
