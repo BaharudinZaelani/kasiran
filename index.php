@@ -12,14 +12,11 @@ if( isset($_POST['logout']) ){
     a {
         text-decoration: none;
     }
-    .text-light {
-        color: #fff;
-    }
     .wrp{
         height: 100vh !important;
         overflow: hidden !important;
         width: 100vw !important;
-        background-color: #fff !important;
+        background-color: <?= BG_COLOR_FOURTH; ?> !important;
     }
     .container {
         display: grid;
@@ -29,8 +26,8 @@ if( isset($_POST['logout']) ){
 
     /* sidebar */
     .col-sidebar {
-        background-color: #515151;
-        color: #fff;
+        background-color: <?= BG_COLOR_SECOND; ?>;
+        color: <?= SIDE_COLOR; ?> !important;
         position: relative;
     }
     .side-body {
@@ -41,7 +38,6 @@ if( isset($_POST['logout']) ){
     .side-header {
         width: 100%;
         height: 50px;
-        /* background-color: #1c1c1c; */
         display: grid;
         justify-content: center;
         align-items: center;
@@ -52,7 +48,7 @@ if( isset($_POST['logout']) ){
         right: 0;
         left: 0;
         height: 50px;
-        background-color: #1c1c1c;
+        background-color: <?= BG_COLOR; ?>;
         display: grid;
         align-items: center;
         justify-content: center;
@@ -68,6 +64,7 @@ if( isset($_POST['logout']) ){
         margin-bottom: 12px;
     }
     .side-body .list-nav ul .list-item .title {
+        color: <?= SIDE_COLOR; ?> !important;
         border: none;
         display: grid;
         align-items: center;
@@ -76,7 +73,7 @@ if( isset($_POST['logout']) ){
         padding: 0;
         margin: 0;
         padding: 12px;
-        background-color: #1c1c1c80;
+        background-color: <?= BG_COLOR_THIRD; ?>;
     }
     .hide {
         height: 0px !important;
@@ -85,12 +82,12 @@ if( isset($_POST['logout']) ){
     .side-body .list-nav ul .list-item .sub-nav {
         height: 150px;
         overflow: hidden;
-        background-color: #1c1c1c5c;
+        background-color: <?= BG_COLOR; ?>;
         padding: 4px;
     }
     .side-body .list-nav ul .list-item .sub-nav li:hover {
         cursor: pointer;
-        background-color: #4a4949 !important;
+        background-color: <?= BG_COLOR_SECOND; ?> !important;
     }
     .side-body .list-nav ul .list-item .sub-nav li {
         padding: 12px;
@@ -103,9 +100,9 @@ if( isset($_POST['logout']) ){
 
     /* content */
     .col-content .navbar {
-        border-left: 1px solid #515151;
+        border-left: 1px solid <?= BG_COLOR_SECOND; ?>;
         height: 50px;
-        background-color: #1c1c1c;
+        background-color: <?= BG_COLOR; ?>;
     }
     .col-content .content {
         padding: 12px;
@@ -133,7 +130,7 @@ if( isset($_POST['logout']) ){
         align-items: center;
     }
     .navbar .user:hover {
-        background-color: #4a4949;
+        background-color: <?= BG_COLOR_FOURTH; ?>;
     }
     .head {
         display: grid;
@@ -152,13 +149,13 @@ if( isset($_POST['logout']) ){
         box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         position: absolute;
         top: 50px;
-        background-color: #515151;
+        background-color: <?= BG_COLOR_SECOND; ?>;
         width: 380px;
         right: 0;
     }
     .sub-navbar button {
         text-align: left;
-        background-color: #1c1c1c;
+        background-color: <?= BG_COLOR; ?>;
         margin: 4px 0;
         color: #fff;
         border: none;
@@ -172,7 +169,7 @@ if( isset($_POST['logout']) ){
         align-items: center;
         padding: 0 12px;
         height: 50px;
-        background-color: #1c1c1c;
+        background-color: <?= BG_COLOR; ?>;
     }
     .navbar-footer button, .navbar-footer a {
         font-weight: bold;
@@ -206,7 +203,7 @@ if( isset($_POST['logout']) ){
             <div class="list-nav">
                 <ul>
                     <li class="list-item">
-                        <a class="title text-light" href="<?= BASE . 'pos.php'; ?>">
+                        <a class="title" href="<?= BASE . '/pos.php'; ?>">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
                                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
                             </svg>
@@ -228,7 +225,7 @@ if( isset($_POST['logout']) ){
                                 <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                                 <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
                             </svg>
-                            TAMBAH USER
+                            ADD USER
                         </div> 
                     </li>
                     <div class="hr"></div>
@@ -238,12 +235,12 @@ if( isset($_POST['logout']) ){
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
                                     <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
                                 </svg> 
-                                PRODUK
+                                PRODUCTS
                             </div> 
                             <div class="sub-nav hide">
                                 <ul>
-                                    <li><a href="?tools=product-list" class="text-light">Daftar Produk</a></li>
-                                    <li><a href="?tools=product-add" class="text-light">Tambah Produk</a></li>
+                                    <li><a href="?tools=product-list" class="text-light">List Products</a></li>
+                                    <li><a href="?tools=product-add" class="text-light">Add Products</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -261,6 +258,9 @@ if( isset($_POST['logout']) ){
                                     <li>
                                         <a href="?tools=import" class="text-light">Import Table</a>
                                     </li>
+                                    <li>
+                                        <a href="?tools=theme" class="text-light">Theme</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -276,7 +276,7 @@ if( isset($_POST['logout']) ){
         <div class="navbar">
             <div class="user" id="nav-dropdown">
                 <div class="head">
-                    <img class="rounded" src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" width="30" height="30">
+                    <img class="rounded" src="<?= $_SESSION['admin']['image']; ?>" width="30" height="30">
                     <div class="username">
                         <?php if( isset($_SESSION['admin']) ) : ?>
                             <?= $_SESSION['admin']['email']?>
@@ -287,7 +287,7 @@ if( isset($_POST['logout']) ){
                     <div class="sub-navbar-header">
                         <div class="sub-navbar-title">
                             <div class="avatar">
-                                <img class="rounded" src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" width="80" height="80">
+                                <img class="rounded" src="<?= $_SESSION['admin']['image']; ?>" width="80" height="80">
                             </div>
                             <div class="sub-nav-title">
                                 <?php if( isset($_SESSION['admin']) ) : ?>
@@ -312,29 +312,35 @@ if( isset($_POST['logout']) ){
         <div class="content scroll">
             <?php if (isset($_GET['tools'])) :?>
 
-                
-                <?php if($_GET['tools'] == 'import') : ?>
-                    <?php include 'views/tools/import.php'; ?>
-                <?php endif;?>
-
-                
+                <!-- product -->
                 <?php if($_GET['tools'] == 'product-list') : ?>
                     <?php include 'views/products/list_product.php'; ?>
                 <?php endif;?>
-
                 
                 <?php if($_GET['tools'] == 'product-add') : ?>
                     <?php include 'views/products/add_product.php'; ?>
                 <?php endif;?>
                 
-                
+                <!-- utilites -->
+                <?php if($_GET['tools'] == 'import') : ?>
+                    <?php include 'views/tools/import.php'; ?>
+                <?php endif;?>
+
+                <?php if($_GET['tools'] == 'theme') : ?>
+                    <?php include 'views/tools/theme.php'; ?>
+                <?php endif;?>
+
                 
             <?php endif; ?>
-            <!-- dashboard -->
+
+            <!-- Dashboard -->
             <?php if(!isset($_GET['tools'])) : ?>
                 <div class="welcome">
-                    <h1>Welcome</h1>
-                    <span><?= NAME; ?> | Version 1.0.0</span>
+                    <div class="alert text-center">
+                        <h1>Welcome to <?= NAME; ?></h1>
+                        <br>
+                        <span><?= NAME; ?> | Version 1.0.0 Dev by Baharudin Zaelani</span>
+                    </div>
                 </div>
             <?php endif;?>
         </div>

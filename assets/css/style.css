@@ -14,6 +14,9 @@ body {
 form {
     display: inline;
 }
+::-webkit-scrollbar {
+    width: 0px;
+}
 
 /* layout */
 .grid.center {
@@ -131,6 +134,10 @@ form {
 .success {
     background-color: #66ce66 !important;
 }
+.dark {
+    background-color: #000 !important;
+}
+
 /* button/input */
 .btn {
     border: none;

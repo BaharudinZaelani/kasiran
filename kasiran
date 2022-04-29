@@ -7,7 +7,6 @@ print "| Kasiran - Setup";
 print "\n";
 print "====================================\n";
 $db = new Database();
-
 // tabel user
 $tabel_user = "CREATE TABLE IF NOT EXISTS user (
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -66,6 +65,7 @@ if($key == 'dropall'){
 
 // create all database and table and run server
 if( $key == 'start' ){
+
     $db->query($tabel_user);
     $db->execute();
     echo  "[Kasiran] Table user has been created\n";
@@ -78,13 +78,24 @@ if( $key == 'start' ){
     $db->execute();
     echo  "[Kasiran] Table product has been created\n";
 
-    // seed data
-    new User('', '', 'Admin', 'admin', 'admin@gmail.com', 'admin', '081234567890', 'Admin', 'Jl. Kebon Jeruk No. 1', Carbon::now(), '');
     if( !file_exists('migrate') ){
         mkdir('migrate');
     }
 
-    // start server
+}
+
+// start server
+if ( $key == "serve" ){
     $command = "php -S ". SERVER ." -t " . __DIR__ ;
     shell_exec($command);
+}
+
+// seed 
+if( $key == 'seed' ){
+    $db->query("SELECT * FROM user WHERE username = 'admin'");
+    $users = $db->resultset();
+    if( empty($users) ){
+        new User('', '', 'Admin', 'admin', 'admin@gmail.com', 'admin', '081234567890', 'Admin', 'Jl. Kebon Jeruk No. 1', Carbon::now(), '');
+        echo  "[Kasiran] Admin has been created\n";
+    }
 }
