@@ -27,5 +27,6 @@ $ php kasiran serve
 - Kasir
 
 ## Feature Aplication
-- Login sebagai admin
+- Login sebagai Admin
+- Login sebagai Kasir
 - CRUD Produk
