@@ -279,7 +279,7 @@ if( isset($_POST['logout']) ){
                     <img class="rounded" src="<?= $_SESSION['admin']['image']; ?>" width="30" height="30">
                     <div class="username">
                         <?php if( isset($_SESSION['admin']) ) : ?>
-                            <?= $_SESSION['admin']['email']?>
+                            <span style="color: <?= SIDE_COLOR; ?>;"><?= $_SESSION['admin']['email']?></span>
                         <?php endif;?>
                     </div>
                 </div>
@@ -291,7 +291,7 @@ if( isset($_POST['logout']) ){
                             </div>
                             <div class="sub-nav-title">
                                 <?php if( isset($_SESSION['admin']) ) : ?>
-                                    <h3><?= $_SESSION['admin']['name']?></h3>
+                                    <h3 style="color: <?= SIDE_COLOR; ?>;"><?= $_SESSION['admin']['name']?></h3>
                                 <?php endif;?>
                             </div>
                         </div>

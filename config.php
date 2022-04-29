@@ -1,4 +1,5 @@
 <?php 
+// zaw
 /* 
  * base = http://localhost:8080/kasiran (project name)
  * base = http://localhost/kasiran (project name)
@@ -41,4 +42,10 @@ if( $curent == "dark" ){
     define("BG_COLOR_SECOND", "#A7B99E");
     define("BG_COLOR_THIRD", "#CEDCC3");
     define("BG_COLOR_FOURTH", "#EFF7D3");
+}else if( $curent == "custom" ){
+    define("SIDE_COLOR", "#fff"); // custom
+    define("BG_COLOR", "#980F5A"); // custom
+    define("BG_COLOR_SECOND", "#750550"); // custom
+    define("BG_COLOR_THIRD", "#570530"); // custom
+    define("BG_COLOR_FOURTH", "#4C0027"); // custom
 }

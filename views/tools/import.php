@@ -28,7 +28,7 @@ if( isset($_POST['upload']) ){
 
 // delete backup product
 if( isset($_POST['deleteProduct']) ){
-    $file->deleteProduct();
+    $file->deleteProduct('migrate/product.sql');
 }
 
 // pulihkan product
@@ -90,7 +90,6 @@ if( isset($_POST['pulihkan']) ){
                             <th>Tahun</th>
                             <th>Bulan</th>
                             <th>Tanggal</th>
-                            <th>Aksi</th>
                         </tr>
                         <?php
                             $i = 0;
@@ -102,15 +101,6 @@ if( isset($_POST['pulihkan']) ){
                                 <td><?= $dt->year ?></td>
                                 <td><?= $dt->month ?></td>
                                 <td><?= $dt->day ?></td>
-                                <td>
-                                    <?php if( $i == 0 ) : ?>
-                                        <?php if( file_exists('migrate/product.sql') ) : ?>
-                                            <form method="post">
-                                                <button name="pulihkan" class="btn success">Pulihkan</button>
-                                            </form>
-                                        <?php endif; ?>
-                                    <?php endif;?>
-                                </td>
                                 <?php $i++ ?>
                             </tr>    
                         <?php endforeach; ?>
@@ -124,9 +114,11 @@ if( isset($_POST['pulihkan']) ){
                         <div class="p-1 danger text-light mt-1"><i>Catatan : Beberapa gambar produk mungkin akan dihapus !</i></div>
                         <form method="post">
                             <div class="input-submit mt-1">
-                                <button class="success">
-                                    <b>Import Tabel</b>
-                                </button>
+                                <?php if( file_exists('migrate/product.sql') ) : ?>
+                                    <button class="success" name="pulihkan">
+                                        <b>Import Tabel</b>
+                                    </button>
+                                <?php endif; ?>
                                 <button name="deleteProduct" class="danger">
                                     <b>Hapus Backupan</b>
                                 </button>

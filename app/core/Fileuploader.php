@@ -86,8 +86,7 @@ class Fileuploader {
     }
 
     // delete table product backup
-    function deleteProduct(){
-        $file = 'migrate/product.php';
+    function deleteProduct($file){
         if( file_exists($file) ) {
             unlink($file);
         }
