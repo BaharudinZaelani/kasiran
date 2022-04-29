@@ -36,4 +36,10 @@ class App {
         header("Location: /login.php");
     }
 
+    public function forAdmin(){
+        if( $_SESSION['admin']['role'] == 'Kasir' ){
+            echo '<script>location.href = "' . BASE . '"</script>';
+        }
+    }
+
 }

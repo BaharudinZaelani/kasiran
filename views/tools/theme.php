@@ -1,6 +1,7 @@
 <!-- php data -->
 <?php 
 $file = 'config.php';
+$app->forAdmin();
 // ambil semua content
 $content = file_get_contents($file);
 if(strpos($content, 'define("SIDE_COLOR", "side-color"); // custom') !== false){

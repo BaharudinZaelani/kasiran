@@ -2,6 +2,7 @@
 use Carbon\Carbon;
 $file = new Fileuploader();
 
+$app->forAdmin();
 // backup log
 $productLog = "SELECT * FROM `backup_log` WHERE `tabel_name` LIKE 'product'";
 $produk = $db->query($productLog);

@@ -1,4 +1,5 @@
 <?php 
+
 $getProduct = "SELECT * FROM product";
 $produk = $db->query($getProduct);
 $result = $db->resultSet();
