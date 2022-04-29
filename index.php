@@ -219,7 +219,7 @@ if( isset($_POST['logout']) ){
                             DASHBOARD
                         </a> 
                     </li>
-                    <?php if( $_SESSION['admin']['role'] == 'admin' ) : ?>
+                    <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
                         <li class="list-item">
                             <div class="title">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
@@ -242,14 +242,14 @@ if( isset($_POST['logout']) ){
                             <div class="sub-nav hide">
                                 <ul>
                                     <li><a href="?tools=product-list" class="text-light">List Products</a></li>
-                                    <?php if( $_SESSION['admin']['role'] == 'admin' ) : ?>
+                                    <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
                                         <li><a href="?tools=product-add" class="text-light">Add Products</a></li>
                                     <?php endif;?>
                                 </ul>
                             </div>
                         </div>
                     </li>
-                    <?php if( $_SESSION['admin']['role'] == 'admin' ) : ?>
+                    <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
                         <li class="list-item">
                             <div class="dropdown">
                                 <div class="title">
