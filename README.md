@@ -26,8 +26,7 @@ $ php kasiran serve
 - Admin 
 - Kasir
 
-## Feature Aplication
-
+## Fitur dari aplikasi
 beberapa fitur dari aplikasi Kasiran
 
 **Login**
