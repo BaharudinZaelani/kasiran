@@ -34,8 +34,24 @@ beberapa fitur dari aplikasi Kasiran
  - Login sebagai Kasir
 
 **Custom Tema Dalam Aplikasi**
- - Custom Color (Mengatur warna website sesuai keinginan)
- - Theme (Memilih langsung tema yang sudah disediakan)
-   - Dark 
-   - Pink
-   - Tea
+- Custom Color (Mengatur warna website sesuai keinginan)
+- Theme (Memilih langsung tema yang sudah disediakan)
+  - Dark 
+  - Pink
+  - Tea
+- Custom profile image
+- Admin 
+  - Edit nama
+  - Edit Email
+  - Edit avatar
+  - Edit Password (x)
+  - Edit no_tlp (x)
+  - Edit alamat (x)
+  - Edit role Kasir (x)
+  - Edit no_tlp Kasir (x)
+  - Edit alamat Kasir (x)
+- Kasir
+  - Edit nama
+  - Edit Email
+  - Edit avatar
+  - Edit Password (x)
