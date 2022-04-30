@@ -42,4 +42,8 @@ class App {
         }
     }
 
+    public function redirect($to = ""){
+        echo '<script>location.href = "' . BASE . $to . '"</script>';
+    }
+
 }

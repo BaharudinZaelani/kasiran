@@ -23,7 +23,7 @@ define("DB_NAME", "kasiran");
 define("NAME", "KASIRAN");
 
 // aplication color
-$curent = "dark";
+$curent = "pink";
 if( $curent == "dark" ){
     define("SIDE_COLOR", "#fff");
     define("BG_COLOR", "#1c1c1c");

@@ -15,7 +15,8 @@ class Fileuploader {
     public function uploadImage($fileName, $fileType, $fileSize, $fileTmpName) {
         $msg = '';
         $status = false;
-        $targetFile = 'assets/img/' . basename( $this->randomNumber(5) . '_' . $fileName);
+        $randomFilename = $this->randomNumber(5) . '_' . $fileName;
+        $targetFile = 'assets/img/' . basename( $randomFilename );
         // check if this image file
         if( $fileType == 'image/png' || $fileType == 'image/jpeg' || $fileType == 'image/jpg' ){
             if ( $fileSize > 500000 ) {
@@ -36,7 +37,8 @@ class Fileuploader {
         return [
             'status' => $status,
             'message' => $msg,
-            'to' => $targetFile
+            'to' => $targetFile,
+            'filename' => $targetFile
         ];
     }
 

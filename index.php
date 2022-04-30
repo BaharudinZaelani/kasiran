@@ -180,6 +180,8 @@ if( isset($_POST['logout']) ){
         background-color: <?= BG_COLOR; ?>;
     }
     .navbar-footer button, .navbar-footer a {
+        border-radius: 5px;
+        padding: 5px 12px;
         font-weight: bold;
         text-transform: uppercase;
     }
@@ -312,7 +314,7 @@ if( isset($_POST['logout']) ){
                     </div>
                     <div class="navbar-footer">
                         <div>
-                            <button class="primary">setting</button>
+                            <a href="?key=profile-setting" class="primary">setting</a>
                         </div>
                         <div>
                             <form method="post">
@@ -324,39 +326,36 @@ if( isset($_POST['logout']) ){
             </div>
         </div>
         <div class="content scroll">
-            <?php if (isset($_GET['tools'])) :?>
+            <?php if (isset($_GET['tools']))  { 
+                // product
+                if($_GET['tools'] == 'product-list'){
+                    include 'views/products/list_product.php';
+                }  
+                else if($_GET['tools'] == 'product-add'){
+                    include 'views/products/add_product.php';
+                }
 
-                <!-- product -->
-                <?php if($_GET['tools'] == 'product-list') : ?>
-                    <?php include 'views/products/list_product.php'; ?>
-                <?php endif;?>
+                // utilites
+                else if($_GET['tools'] == 'import'){
+                    include 'views/tools/import.php';
+                }
+                else if($_GET['tools'] == 'theme'){
+                    include 'views/tools/theme.php';
+                }else {
+                    $app->redirect();
+                }
+
                 
-                <?php if($_GET['tools'] == 'product-add') : ?>
-                    <?php include 'views/products/add_product.php'; ?>
-                <?php endif;?>
-                
-                <!-- utilites -->
-                <?php if($_GET['tools'] == 'import') : ?>
-                    <?php include 'views/tools/import.php'; ?>
-                <?php endif;?>
-
-                <?php if($_GET['tools'] == 'theme') : ?>
-                    <?php include 'views/tools/theme.php'; ?>
-                <?php endif;?>
-
-                
-            <?php endif; ?>
-
-            <!-- Dashboard -->
-            <?php if(!isset($_GET['tools'])) : ?>
-                <div class="welcome">
-                    <div class="alert text-center">
-                        <h1>Welcome to <?= NAME; ?></h1>
-                        <br>
-                        <span><?= NAME; ?> | Version 1.0.0 Dev by Baharudin Zaelani</span>
-                    </div>
-                </div>
-            <?php endif;?>
+            }else if(isset($_GET['key'])) {
+                // profile-setting
+                if ($_GET['key'] == 'profile-setting') {
+                    include 'views/profile/profile.php';
+                }else {
+                    $app->redirect();
+                }
+            } else {
+                include 'views/welcome.php';
+            }?>
         </div>
     </div>
 </div>
