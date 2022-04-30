@@ -115,17 +115,23 @@ if( isset($_POST['dark']) ) {
                 <div class="row col-2">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Text Color</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Text / Button</span>
                         </div>
                         <input type="text" class="form-control" name="side-color" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="side-color" 
                         value="<?= SIDE_COLOR; ?>">
+                        <div class="input-submit">
+                            <button style="background-color: <?= SIDE_COLOR; ?>;"></button>
+                        </div>
                     </div>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Background Color</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Navbar/Sidebar Hover Button</span>
                         </div>
                         <input type="text" class="form-control" name="bg-color" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="bg-color" 
                         value="<?= BG_COLOR; ?>">
+                        <div class="input-submit">
+                            <button style="background-color: <?= BG_COLOR; ?>;"></button>
+                        </div>
                     </div>
                 </div>
 
@@ -137,6 +143,10 @@ if( isset($_POST['dark']) ) {
                         </div>
                         <input type="text" name="bg-color-second" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="bg-color-second" 
                         value="<?= BG_COLOR_SECOND; ?>">
+                        
+                        <div class="input-submit">
+                            <button style="background-color: <?= BG_COLOR_SECOND; ?>;"></button>
+                        </div>
                     </div>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -144,6 +154,10 @@ if( isset($_POST['dark']) ) {
                         </div>
                         <input type="text" name="bg-color-third" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="bg-color-third" 
                         value="<?= BG_COLOR_THIRD; ?>">
+                        
+                        <div class="input-submit">
+                            <button style="background-color: <?= BG_COLOR_THIRD; ?>;"></button>
+                        </div>
                     </div>
                 </div>
 
@@ -151,17 +165,21 @@ if( isset($_POST['dark']) ) {
                 <div class="row col-2">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">BG_COLOR_FOURTH</span>
+                            <span class="input-group-text" id="inputGroup-sizing-default">Background Color</span>
                         </div>
                         <input name="bg-color-fourth" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="bg-color-fourth" 
                         value="<?= BG_COLOR_FOURTH; ?>">
+                        
+                        <div class="input-submit">
+                            <button style="background-color: <?= BG_COLOR_FOURTH; ?>;"></button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- submit -->
                 <div class="row col-2">
                     <div class="input-submit">
-                        <button style="background-color: <?= BG_COLOR; ?> !important;" name="submit-theme">Ubah Tema</button>
+                        <button name="submit-theme">Ubah Tema</button>
                     </div>
                 </div>
             </form>

@@ -1,12 +1,11 @@
 <?php 
 include 'app/init.php';
+include 'app/console/ConsoleDatabase.php';
 use Carbon\Carbon;
-print "====================================";
-print "\n";
-print "| Kasiran - Setup";
-print "\n";
-print "====================================\n";
+
 $db = new Database();
+$consolDb = new ConsoleDatabase();
+
 // tabel user
 $tabel_user = "CREATE TABLE IF NOT EXISTS user (
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -49,40 +48,7 @@ $tabel_produk = "CREATE TABLE IF NOT EXISTS product (
   PRIMARY KEY (id)
 )";
 
-
 $key = end($argv);
-// create database
-if ($key == '--create-db') {
-    $db = new Database();
-    print "Database created!\n";
-}
-// drop database
-if($key == 'dropall'){
-    $db->query('DROP DATABASE ' . DB_NAME);
-    $db->execute();
-    echo  "[Kasiran] Database " . DB_NAME . " has been deleted\n";
-}
-
-// create all database and table and run server
-if( $key == 'start' ){
-
-    $db->query($tabel_user);
-    $db->execute();
-    echo  "[Kasiran] Table user has been created\n";
-
-    $db->query($tabel_backup_log);
-    $db->execute();
-    echo  "[Kasiran] Table backup_log has been created\n";
-
-    $db->query($tabel_produk);
-    $db->execute();
-    echo  "[Kasiran] Table product has been created\n";
-
-    if( !file_exists('migrate') ){
-        mkdir('migrate');
-    }
-
-}
 
 // start server
 if ( $key == "serve" ){
@@ -90,12 +56,72 @@ if ( $key == "serve" ){
     shell_exec($command);
 }
 
-// seed 
-if( $key == 'seed' ){
-    $db->query("SELECT * FROM user WHERE username = 'admin'");
-    $users = $db->resultset();
-    if( empty($users) ){
-        new User('', '', 'Admin', 'admin', 'admin@gmail.com', 'admin', '081234567890', 'Admin', 'Jl. Kebon Jeruk No. 1', Carbon::now(), '');
-        echo  "[Kasiran] Admin has been created\n";
+// Database setup
+if( $key == '--setup-db' ){
+    $consolDb->displayDatabaseSetup();
+    while (true){
+        print "\n\n";
+        print "Masukan pilihan : ";
+        $key = trim(fgets(STDIN));
+        if ($key == '1') {
+            $consolDb->createdb();
+        }else if($key == '2'){
+            $db->query('DROP DATABASE ' . DB_NAME);
+            $db->execute();
+            print  "[Kasiran] Database " . DB_NAME . " has been deleted\n";
+        }else if ( $key == '3' ) {
+            break;
+        }else {
+            print "Pilihan tidak ada !\n";
+        }
+    }
+}
+
+if ( $key == '--setup-tb' ) {
+    $consolDb->displayTabelSetup();
+    while (true){
+        print "\n\n";
+        print "Masukan pilihan : ";
+        $key = trim(fgets(STDIN));
+        if( $key == '1' ){
+            $db->query($tabel_user);
+            $db->execute();
+            echo  "[Kasiran] Table user has been created\n";
+
+            $db->query($tabel_backup_log);
+            $db->execute();
+            echo  "[Kasiran] Table backup_log has been created\n";
+
+            $db->query($tabel_produk);
+            $db->execute();
+            echo  "[Kasiran] Table product has been created\n";
+
+            if( !file_exists('migrate') ){
+                mkdir('migrate');
+            }
+        }else if ( $key == '2' ){
+            $db->query("SELECT * FROM user WHERE username = 'admin'");
+            $users = $db->resultset();
+            if( empty($users) ){
+                new User(
+                    '', 
+                    '', 
+                    'Admin', 
+                    'admin', 
+                    'admin@gmail.com', 
+                    'admin', 
+                    '081234567890', 
+                    'Admin', 
+                    'Jl. Kebon Jeruk No. 1', 
+                    Carbon::now(), 
+                    ''
+                );
+                echo  "[Kasiran] Admin has been created\n";
+            }
+        }else if ( $key == '3' ) {
+            break;
+        }else {
+            print "Pilihan tidak ada !\n";
+        }
     }
 }

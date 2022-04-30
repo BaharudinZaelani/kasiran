@@ -12,6 +12,11 @@ if( isset($_POST['logout']) ){
     a {
         text-decoration: none;
     }
+    .card button {
+        background-color: <?= BG_COLOR_SECOND; ?> !important;
+        color: <?= SIDE_COLOR; ?> !important;
+        font-weight: bold;
+    }
     .wrp{
         height: 100vh !important;
         overflow: hidden !important;
@@ -63,7 +68,10 @@ if( isset($_POST['logout']) ){
     .side-body .list-nav ul .list-item {
         margin-bottom: 12px;
     }
-    .side-body .list-nav ul .list-item .title {
+    .sub-nav a {
+        color: <?= SIDE_COLOR; ?> !important;
+    }
+    .side-body .list-nav ul .list-item .title{
         color: <?= SIDE_COLOR; ?> !important;
         border: none;
         display: grid;

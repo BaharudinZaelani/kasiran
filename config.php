@@ -43,9 +43,9 @@ if( $curent == "dark" ){
     define("BG_COLOR_THIRD", "#CEDCC3");
     define("BG_COLOR_FOURTH", "#EFF7D3");
 }else if( $curent == "custom" ){
-    define("SIDE_COLOR", "#fff"); // custom
-    define("BG_COLOR", "#980F5A"); // custom
-    define("BG_COLOR_SECOND", "#750550"); // custom
-    define("BG_COLOR_THIRD", "#570530"); // custom
-    define("BG_COLOR_FOURTH", "#4C0027"); // custom
+    define("SIDE_COLOR", "#000"); // custom
+    define("BG_COLOR", "#FF570C"); // custom
+    define("BG_COLOR_SECOND", "#AC7D88"); // custom
+    define("BG_COLOR_THIRD", "#DEB6AB"); // custom
+    define("BG_COLOR_FOURTH", "#F7F7F7"); // custom
 }
