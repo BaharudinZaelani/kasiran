@@ -105,7 +105,7 @@ if ( $key == '--setup-tb' ) {
             if( empty($users) ){
                 new User(
                     '', 
-                    '', 
+                    'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
                     'Admin', 
                     'admin', 
                     'admin@gmail.com', 
@@ -117,6 +117,25 @@ if ( $key == '--setup-tb' ) {
                     ''
                 );
                 echo  "[Kasiran] Admin has been created\n";
+            }
+            
+            $db->query("SELECT * FROM user WHERE username = 'kasir'");
+            $users = $db->resultset();
+            if( empty($users) ){
+                new User(
+                    '', 
+                    'https://i.pinimg.com/originals/a7/4b/9c/a74b9c1a194f69d3c89a016bda1a32fa.jpg', 
+                    'Kasir zaw', 
+                    'kasir', 
+                    'kasir@gmail.com', 
+                    'kasir', 
+                    '081234567890', 
+                    'Kasir', 
+                    'Jl. Cikundul Vilage No. 1', 
+                    Carbon::now(), 
+                    ''
+                );
+                echo  "[Kasiran] Kasir has been created\n";
             }
         }else if ( $key == '3' ) {
             break;

@@ -22,7 +22,7 @@ class ConsoleDatabase {
         print "\n";
         print "======================================================\n";
         print "1. Setup Tabel ( Membuat semua tabel yang dibutuhkan aplikasi )\n";
-        print "2. Seed Admin ( Menambahkan 1 data admin pada database )\n";
+        print "2. Seed Admin/Kasir ( Menambahkan 1 data admin pada database )\n";
         print "3. Exit \n";
     }
 
