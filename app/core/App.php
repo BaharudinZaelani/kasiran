@@ -5,6 +5,7 @@ class App {
     function __construct()
     {
         session_start();
+        new DateTimeZone('Asia/Jakarta');
     }
     
     public function auth($param) {

@@ -48,6 +48,17 @@ $tabel_produk = "CREATE TABLE IF NOT EXISTS product (
   PRIMARY KEY (id)
 )";
 
+// user log
+$tabel_user_log = "CREATE TABLE IF NOT EXISTS user_log (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)";
+
+
 $key = end($argv);
 
 // start server
@@ -95,6 +106,10 @@ if ( $key == '--setup-tb' ) {
             $db->query($tabel_produk);
             $db->execute();
             echo  "[Kasiran] Table product has been created\n";
+
+            $db->query($tabel_user_log);
+            $db->execute();
+            echo  "[Kasiran] Table user_log has been created\n";
 
             if( !file_exists('migrate') ){
                 mkdir('migrate');

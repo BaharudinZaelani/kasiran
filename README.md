@@ -50,6 +50,8 @@ beberapa fitur dari aplikasi Kasiran
   - Edit role Kasir (x)
   - Edit no_tlp Kasir (x)
   - Edit alamat Kasir (x)
+  - Tambah user Kasir (x)
+  - Hapus user Kasir (x)
 - Kasir
   - Edit nama
   - Edit Email
