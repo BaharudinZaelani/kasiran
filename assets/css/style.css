@@ -177,10 +177,12 @@ form {
     background-color: #0000FF;
     color: #fff;
     cursor: pointer;
+    display: inline-block;
 }
 .btn-sm {
+    display: inline-block;
     padding: 5px 8px !important;
-    transform: scale(0.9);
+    transform: scale(0.9) !important;
 }
 .input-group {
     margin-bottom: 12px;

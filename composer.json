@@ -15,6 +15,7 @@
     ],
     "require": {
         "nesbot/carbon": "^2.57",
-        "symfony/process": "^6.0"
+        "symfony/process": "^6.0",
+        "box/spout": "^3.3"
     }
 }

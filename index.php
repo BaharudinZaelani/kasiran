@@ -1,19 +1,20 @@
-<?php include 'app/init.php'; ?>
 <?php 
+
+include 'app/init.php';
 $app = new App();
 $db = new Database();
 $app->auth('auth');
 if( isset($_POST['logout']) ){
     $app->logout();
 }
+include 'views/header.php'; 
 ?>
-<?php include 'views/header.php'; ?>
 <style>
     a {
         text-decoration: none;
     }
     .card button {
-        background-color: <?= BG_COLOR_SECOND; ?> !important;
+        background-color: <?= BG_COLOR_SECOND; ?>;
         color: <?= SIDE_COLOR; ?> !important;
         font-weight: bold;
     }
@@ -354,7 +355,7 @@ if( isset($_POST['logout']) ){
                     $app->redirect();
                 }
             } else {
-                include 'views/welcome.php';
+                include 'views/dashboard.php';
             }?>
         </div>
     </div>

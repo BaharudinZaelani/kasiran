@@ -1,8 +1,74 @@
-<?php 
+<?php
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use Box\Spout\Common\Entity\Style\Color;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
+use Box\Spout\Common\Entity\Style\Border;
+use Carbon\Carbon as time;
+
+$uri = $_SERVER['REQUEST_URI'];
 
 $getProduct = "SELECT * FROM product";
 $produk = $db->query($getProduct);
 $result = $db->resultSet();
+// export excel
+if( isset($_POST['exportExcel']) ){
+
+    $writer = WriterEntityFactory::createXLSXWriter();
+
+    $writer->openToFile('dl/product/product.xlsx');
+    // style
+    // row 
+    $zebraBlackStyle = (new StyleBuilder())
+                    ->setBackgroundColor(Color::BLACK)
+                    ->setFontColor(Color::WHITE)
+                    ->build();
+    // cell
+    $border = (new BorderBuilder())
+            ->setBorderBottom(Color::GREEN, Border::WIDTH_THIN, Border::STYLE_DASHED)
+            ->build();
+    $style = (new StyleBuilder())
+            ->setBorder($border)
+            ->build();
+
+    // cell
+    $cells = [
+        WriterEntityFactory::createCell('Nama Produk', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Type', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Kategory', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Stock', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Harga Beli', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Harga Jual', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Created', $zebraBlackStyle),
+        WriterEntityFactory::createCell('Updated', $zebraBlackStyle),
+    ];
+    $singleRow = WriterEntityFactory::createRow($cells);
+    $writer->addRow($singleRow);
+
+    // row
+    foreach( $result as $row ){
+        $values = [];
+        array_push($values, $row['name']);
+        array_push($values, $row['type']);
+        array_push($values, $row['category']);
+        array_push($values, $row['quantity']);
+        array_push($values, $row['cost']);
+        array_push($values, $row['price']);
+        array_push($values, time::parse($row['created_at'])->format('d-m-Y'));
+        array_push($values, time::parse($row['updated_at'])->format('d-m-Y'));
+        $rowFromValues = WriterEntityFactory::createRowFromArray($values);
+        $rowFromValues->setStyle($style);
+        $writer->addRow($rowFromValues);
+    }
+    
+
+    $writer->close();
+    ?>
+    <script>
+        window.open("<?= BASE ?>/download.php?dl=excel");
+    </script>
+<?php
+}
 // SELECT *FROM yourTableName ORDER BY yourIdColumnName LIMIT 10;
 if( isset($_POST['hapus']) ){
     $id = $_POST['id'];
@@ -31,6 +97,51 @@ if( isset($_POST['hapus']) ){
             })
         </script>';
     }
+}
+
+// edit
+$file = new Fileuploader();
+if( isset($_POST['edit']) ){
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $type = $_POST['type'];
+    $category = $_POST['category'];
+    $quantity = $_POST['quantity'];
+    $cost = $_POST['cost'];
+    $price = $_POST['price'];
+    $tax = $_POST['tax'];
+    // upload file
+    if( $_FILES['image']['name'] !== '' ){
+        // unlink($image);
+        $upload = $file->uploadImage($_FILES['image']['name'], $_FILES['image']['type'], $_FILES['image']['size'], $_FILES['image']['tmp_name']);
+        $image = $upload['to'];
+    }else {
+        $image = $_POST['tempImage'];
+    }
+    $query = "UPDATE product SET name = '$name', type = '$type', category = '$category', quantity = '$quantity', cost = '$cost', price = '$price', tax = '$tax', image = '$image' WHERE id = '$id'";
+    $db->query($query);
+    if( $db->execute() ){
+        echo '<script>
+            Swal.fire({
+                title: "Success!",
+                text: "Data berhasil diubah",
+                icon: "success",
+                confirmButtonText: "OKE !",
+                confirmButtonColor: "#2b982b"
+            })
+        </script>';
+    } else {
+        echo '<script>
+            Swal.fire({
+                title: "Failed!",
+                text: "Data gagal diubah",
+                icon: "error",
+                confirmButtonText: "OKE !",
+                confirmButtonColor: "#2b982b"
+            })
+        </script>';
+    }
+    $app->redirect($uri);
 }
 ?>
 <style>
@@ -76,6 +187,7 @@ if( isset($_POST['hapus']) ){
         justify-content: end;
     }
 </style>
+<!-- list view -->
 <div class="card-wrp">
     <div class="card">
         <div class="card-header">
@@ -103,9 +215,10 @@ if( isset($_POST['hapus']) ){
                 </div>
                 <div class="tools">
                     <div class="input-submit">
-                        <button class="btn">Copy</button>
-                        <button class="btn">Excel</button>
-                        <button class="btn">PDF</button>
+                        <form method="post">
+                            <button class="btn" name="exportExcel">Excel</button>
+                            <button class="btn">PDF</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -118,7 +231,6 @@ if( isset($_POST['hapus']) ){
                         <th>Kategory</th>
                         <th>Stok</th>
                         <th>TAX</th>
-                        <th>Method</th>
                         <th>Cost</th>
                         <th>Harga</th>
                         <th class="center">Aksi</th>
@@ -134,18 +246,17 @@ if( isset($_POST['hapus']) ){
                             <td><?= $row['type']; ?></td>
                             <td><?= $row['category']; ?></td>
                             <td><?= $row['quantity']; ?></td>
-                            <td><?= $row['tax']; ?></td>
-                            <td><span class="badge"><?= $row['method']; ?></span></td>
+                            <td><?= $row['tax']; ?>%</td>
                             <td><?= number_format($row['cost'],2,",","."); ?></td>
                             <td><?= number_format($row['price'],2,",","."); ?></td>
                             <td>
                                 <div class="grid center">
                                     <div class="input-submit">
-                                        <button class="btn-sm">
+                                        <a href="<?= $uri; ?>&edit=<?= $row['id']; ?>" class="btn-sm">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
-                                        </button>
+                                        </a>
                                         <button class="btn-sm primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
                                                 <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
@@ -170,3 +281,101 @@ if( isset($_POST['hapus']) ){
         </div>
     </div>
 </div>
+<!-- eidt view -->
+<?php 
+if(isset($_GET['edit'])) { 
+$id = $_GET['edit'];
+$sql = "SELECT * FROM product WHERE id = '$id'";
+$db->query($sql);
+$data = $db->resultSet();
+if(isset($data[0])){
+?>
+    <div class="card-wrp mt-1">
+        <div class="card">
+            <div class="card-header">
+                <h3>Edit Data</h3>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <input type="text" name="tempImage" hidden value="<?= $data[0]['image']; ?>">
+                    <input type="text" name="id" value="<?= $data[0]['id']; ?>" hidden>
+                    <div class="row col-2">
+                        <div class="image-view">
+                            <span>Gambar Yang sedang dipakai !</span>
+                            <img src="<?= $data[0]['image']; ?>" alt="">
+                        </div>
+                        <div class="input-group">
+                            <label for="image">Gambar</label>
+                            <input type="file" name="image" id="image">
+                        </div>
+                    </div>
+                    <div class="row col-2">
+                        <div class="input-group">
+                            <label for="name">Nama Produk</label>
+                            <input type="text" name="name" id="name" value="<?= $data[0]['name']; ?>">
+                        </div>
+                        <div class="input-group">
+                            <label for="price">Harga</label>
+                            <input type="text" name="price" id="price" value="<?= $data[0]['price']; ?>">
+                        </div>
+                    </div>
+                    <div class="row col-2">
+                        <div class="input-group">
+                            <label for="stock">Stok</label>
+                            <input type="text" name="quantity" id="stock" value="<?= $data[0]['quantity']; ?>">
+                        </div>
+                        <div class="input-group">
+                            <label for="category">Kategori</label>
+                            <select name="category" id="category">
+                                <option value="<?= $data[0]['category']; ?>"><?= $data[0]['category']; ?></option>
+                                <option value="Makanan">Makanan</option>
+                                <option value="Minuman">Minuman</option>
+                                <option value="Kue">Kue</option>
+                                <option value="Kerajinan">Kerajinan</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-2">
+                        <div class="input-group">
+                            <label for="cost">Cost</label>
+                            <input type="text" name="cost" id="cost" value="<?= $data[0]['cost']; ?>">
+                        </div>
+                        <div class="input-group">
+                            <label for="price">Harga</label>
+                            <input type="text" name="price" id="price" value="<?= $data[0]['price']; ?>">
+                        </div>
+                    </div>
+                    <div class="row col-2">
+                        <div class="input-group">
+                            <label for="type">Type</label>
+                            <select name="type" id="type">
+                                <option value="<?= $data[0]['type']; ?>"><?= $data[0]['type']; ?></option>
+                                <option value="Pokok">Pokok</option>
+                                <option value="Bumbu">Bumbu</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="tax">TAX</label>
+                            <input type="text" name="tax" id="tax" value="<?= $data[0]['tax']; ?>">
+                        </div>
+                    </div>
+                    <div class="input-submit">
+                        <button type="submit" class="success" name="edit">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php }else {
+    echo '
+        <div class="card-wrp mt-1">
+            <div class="card-body">
+                <div class="alert alert-danger">
+                    Data tidak ditemukan
+                </div>
+            </div>
+        </div>
+    ';
+}
+}?>

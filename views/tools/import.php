@@ -25,6 +25,7 @@ if( isset($_POST['upload']) ){
         $status = $cek['status'];
         $msg = $cek['message'];
     }
+    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], 'Upload backup produk', Carbon::now());
 }
 
 // delete backup product
@@ -35,6 +36,7 @@ if( isset($_POST['deleteProduct']) ){
 // pulihkan product
 if( isset($_POST['pulihkan']) ){
     $file->sqlImport('migrate/product.sql');
+    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], 'Memulihkan Produk', Carbon::now());
     echo '<script>
             Swal.fire({
                 title: "Success!",

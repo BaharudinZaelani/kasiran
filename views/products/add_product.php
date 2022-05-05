@@ -10,7 +10,6 @@ if( isset($_POST['tambah']) ) {
     $category = $_POST['category'];
     $quantity = $_POST['quantity'];
     $tax = $_POST['tax'];
-    $method = $_POST['method'];
     $cost = $_POST['cost'];
     $price = $_POST['price'];
     $created = time::now();
@@ -19,7 +18,10 @@ if( isset($_POST['tambah']) ) {
     $upload = $file->uploadImage($_FILES['image']['name'], $_FILES['image']['type'], $_FILES['image']['size'], $_FILES['image']['tmp_name']);
     $image = $upload['to'];
 
-    $query = "INSERT INTO product (name, image, type, category, quantity, tax, method, cost, price, created_at, updated_at) VALUES ('$name', '$image', '$type', '$category', '$quantity', '$tax', '$method', '$cost', '$price', '$created', NULL)";
+    // add log for user
+    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], 'Menambahkan produk baru', $created);
+
+    $query = "INSERT INTO product (name, image, type, category, quantity, tax, cost, price, created_at, updated_at) VALUES ('$name', '$image', '$type', '$category', '$quantity', '$tax', '$cost', '$price', '$created', NULL)";
     $db->query($query);
     if( $db->execute() AND $upload['status'] ) {
         echo '<script>
@@ -74,8 +76,11 @@ if( isset($_POST['tambah']) ) {
                     <div class="row col-2">
                         <div class="input-group">
                             <label for="type">type</label>
+                            
                             <select name="type" id="type">
-                                <option value="1">Standard</option>
+                                <option value="Pokok">Pokok</option>
+                                <option value="Bumbu">Bumbu</option>
+                                <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                     </div>
@@ -85,7 +90,10 @@ if( isset($_POST['tambah']) ) {
                         <div class="input-group">
                             <label for="category">Kategory</label>
                             <select name="category" id="category">
-                                <option value="1">General</option>
+                                <option value="Makanan">Makanan</option>
+                                <option value="Minuman">Minuman</option>
+                                <option value="Kue">Kue</option>
+                                <option value="Kerajinan">Kerajinan</option>
                             </select>
                         </div>
                     </div>
@@ -107,7 +115,7 @@ if( isset($_POST['tambah']) ) {
                     </div>
 
                     <!-- baris 5 -->
-                    <div class="row col-2">
+                    <!-- <div class="row col-2">
                         <div class="input-group">
                             <label for="method">Method</label>
                             <select name="method" id="method">
@@ -116,7 +124,7 @@ if( isset($_POST['tambah']) ) {
                                 <option value="Credit">Credit</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <!-- baris 6 -->
                     <div class="row col-2">
