@@ -4,7 +4,9 @@ class App {
     function __construct()
     {
         session_start();
-        new DateTimeZone('Asia/Jakarta');
+        new DateTimeZone(TIMEZONE);
+        date_default_timezone_set(TIMEZONE);
+
     }
 
     public function getURI(){

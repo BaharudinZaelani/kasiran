@@ -208,7 +208,8 @@ include 'views/header.php';
 <div class="container">
     <div class="col-sidebar">
         <div class="side-header">
-            <h3><?= NAME; ?></h3>
+            <!-- <h3><?= NAME; ?></h3> -->
+            <img src="<?= BASE . LOGO ?>" width="140" alt="">
         </div>
         <div class="side-body">
             <div class="list-nav">

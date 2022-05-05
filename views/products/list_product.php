@@ -118,6 +118,8 @@ if( isset($_POST['edit']) ){
     }else {
         $image = $_POST['tempImage'];
     }
+
+    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], "edit produk $name", time::now());
     $query = "UPDATE product SET name = '$name', type = '$type', category = '$category', quantity = '$quantity', cost = '$cost', price = '$price', tax = '$tax', image = '$image' WHERE id = '$id'";
     $db->query($query);
     if( $db->execute() ){

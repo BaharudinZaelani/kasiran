@@ -1,6 +1,8 @@
 <?php 
-// zaw
-/* 
+/* --------------------------------------------------------------------
+ * Jangan mengubah kode-kode di bawah ini ya!, jika anda tidak mengerti 
+ * --------------------------------------------------------------------
+ 
  * base = http://localhost:8080/kasiran (project name)
  * base = http://localhost/kasiran (project name)
  * $_SERVER['HTTP_HOST'] . '/kasiran/'
@@ -22,7 +24,10 @@ define("DB_NAME", "kasiran");
 define("NAME", "KASIRAN");
 
 // aplication color
-$curent = "custom";
+define('LOGO', '/assets/img/logo.png');
+define('LOGO_WEB', '/assets/img/logo_web.png');
+define('TIMEZONE', 'Asia/Jakarta');
+$curent = "pink";
 if( $curent == "dark" ){
     define("SIDE_COLOR", "#fff");
     define("BG_COLOR", "#1c1c1c");
