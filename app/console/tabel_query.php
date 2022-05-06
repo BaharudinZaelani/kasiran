@@ -45,8 +45,8 @@ $tabel_produk = "CREATE TABLE IF NOT EXISTS product (
   category VARCHAR(255) NOT NULL,
   quantity INT(11) NOT NULL,
   tax INT(11) NOT NULL,
-  cost INT(11) NOT NULL,
-  price INT(11) NOT NULL,
+  cost INT(255) NOT NULL,
+  price INT(255) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -63,14 +63,15 @@ $tabel_user_log = "CREATE TABLE IF NOT EXISTS user_log (
     action VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
 )";
 
 
 /* ----------------------
  * | tabel action_log   |
  * ---------------------- 
- * menambah tabel backup_log
+ * menambah tabel action_log
  */
 $action_log = "CREATE TABLE IF NOT EXISTS action_log (
     id INT(11) NOT NULL AUTO_INCREMENT,
@@ -79,5 +80,26 @@ $action_log = "CREATE TABLE IF NOT EXISTS action_log (
     action VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user(id)
 )";
+
+
+/* ----------------------
+ * | tabel transaksi   |
+ * ---------------------- 
+ * menambah tabel transaksi
+ */
+$tabel_transaksi = "CREATE TABLE IF NOT EXISTS transaksi (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    user_id INT(11) NOT NULL,
+    barang_id INT(11) NOT NULL,
+    jumlah_beli INT(11) NOT NULL,
+    total_price INT(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (barang_id) REFERENCES product(id)
+)";
+

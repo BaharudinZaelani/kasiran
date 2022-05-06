@@ -94,6 +94,7 @@ if( isset($_POST['tambah']) ) {
                                 <option value="Minuman">Minuman</option>
                                 <option value="Kue">Kue</option>
                                 <option value="Kerajinan">Kerajinan</option>
+                                <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                     </div>

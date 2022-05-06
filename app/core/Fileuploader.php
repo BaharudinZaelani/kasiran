@@ -18,7 +18,7 @@ class Fileuploader {
         $randomFilename = $this->randomNumber(5) . '_' . $fileName;
         $targetFile = 'assets/img/' . basename( $randomFilename );
         // check if this image file
-        if( $fileType == 'image/png' || $fileType == 'image/jpeg' || $fileType == 'image/jpg' ){
+        if( $fileType == 'image/png' || $fileType == 'image/jpeg' || $fileType == 'image/webp' ){
             if ( $fileSize > 500000 ) {
                 $msg = 'File size is too large';
                 $status = false;

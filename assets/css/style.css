@@ -30,6 +30,9 @@ form {
     overflow-y: scroll !important;
     height: 90vh;
 }
+.scroll-vertical {
+    overflow-y: scroll !important;
+}
 
 /* card */
 .card-wrp {

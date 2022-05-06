@@ -27,7 +27,7 @@ define("NAME", "KASIRAN");
 define('LOGO', '/assets/img/logo.png');
 define('LOGO_WEB', '/assets/img/logo_web.png');
 define('TIMEZONE', 'Asia/Jakarta');
-$curent = "pink";
+$curent = "dark";
 if( $curent == "dark" ){
     define("SIDE_COLOR", "#fff");
     define("BG_COLOR", "#1c1c1c");
@@ -48,7 +48,7 @@ if( $curent == "dark" ){
     define("BG_COLOR_FOURTH", "#EFF7D3");
 }else if( $curent == "custom" ){
     define("SIDE_COLOR", "#fff"); // custom
-    define("BG_COLOR", "#005F70"); // custom
+    define("BG_COLOR", "#00A0BD"); // custom
     define("BG_COLOR_SECOND", "#00CDDB"); // custom
     define("BG_COLOR_THIRD", "#00A0BD"); // custom
     define("BG_COLOR_FOURTH", "#1C585C"); // custom

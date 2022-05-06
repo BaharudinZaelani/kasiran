@@ -1,6 +1,7 @@
 <?php 
 
 include 'app/init.php';
+
 $app = new App();
 $db = new Database();
 $app->auth('auth');
@@ -13,9 +14,11 @@ include 'views/header.php';
     a {
         text-decoration: none;
     }
+    .primary {
+        color: white !important;
+    }
     .card button {
         background-color: <?= BG_COLOR_SECOND; ?>;
-        color: <?= SIDE_COLOR; ?> !important;
         font-weight: bold;
     }
     .wrp{
@@ -231,18 +234,26 @@ include 'views/header.php';
                             DASHBOARD
                         </a> 
                     </li>
+                    <div class="hr"></div>
                     <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
                         <li class="list-item">
-                            <div class="title">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                                    <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
-                                </svg>
-                                ADD USER
-                            </div> 
+                            <div class="dropdown">
+                                <div class="title">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                                        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                                    </svg>
+                                    KASIR 
+                                </div> 
+                                <div class="sub-nav hide">
+                                    <ul>
+                                        <li><a href="?tools=user-list" class="text-light">List Kasir</a></li>
+                                        <li><a href="?tools=user-add" class="text-light">Tambah Kasir</a></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </li>
                     <?php endif; ?>
-                    <div class="hr"></div>
                     <li class="list-item">
                         <div class="dropdown">
                             <div class="title">
@@ -254,9 +265,7 @@ include 'views/header.php';
                             <div class="sub-nav hide">
                                 <ul>
                                     <li><a href="?tools=product-list" class="text-light">List Products</a></li>
-                                    <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
-                                        <li><a href="?tools=product-add" class="text-light">Add Products</a></li>
-                                    <?php endif;?>
+                                    <li><a href="?tools=product-add" class="text-light">Tambah Products</a></li>
                                 </ul>
                             </div>
                         </div>

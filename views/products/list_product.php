@@ -316,10 +316,6 @@ if(isset($data[0])){
                             <label for="name">Nama Produk</label>
                             <input type="text" name="name" id="name" value="<?= $data[0]['name']; ?>">
                         </div>
-                        <div class="input-group">
-                            <label for="price">Harga</label>
-                            <input type="text" name="price" id="price" value="<?= $data[0]['price']; ?>">
-                        </div>
                     </div>
                     <div class="row col-2">
                         <div class="input-group">

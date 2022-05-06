@@ -64,6 +64,10 @@ if ( $key == '--setup-tb' ) {
             $db->execute();
             echo  "[Kasiran] Table action_log has been created\n";
 
+            $db->query($tabel_transaksi);            
+            $db->execute();
+            echo  "[Kasiran] Table transaksi has been created\n";
+
             if( !file_exists('migrate') ){
                 mkdir('migrate');
             }
