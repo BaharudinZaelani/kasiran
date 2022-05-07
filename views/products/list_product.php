@@ -8,8 +8,21 @@ use Carbon\Carbon as time;
 
 $uri = $_SERVER['REQUEST_URI'];
 
-$getProduct = "SELECT * FROM product";
-$produk = $db->query($getProduct);
+// edit page
+if( isset($_POST['submit-page']) ) {
+    $page = $_POST['page-count'];
+    $p->setPage((int)$page);
+}
+
+if( isset($_POST['show']) ){
+    $show = $_POST['input'];
+    $p->setShow((int)$show);
+    $p->setPage(1);
+}
+
+// query product
+$query = $p->queryString();
+$produk = $db->query($query);
 $result = $db->resultSet();
 // export excel
 if( isset($_POST['exportExcel']) ){
@@ -69,7 +82,6 @@ if( isset($_POST['exportExcel']) ){
     </script>
 <?php
 }
-// SELECT *FROM yourTableName ORDER BY yourIdColumnName LIMIT 10;
 if( isset($_POST['hapus']) ){
     $id = $_POST['id'];
     $image = $_POST['image'];
@@ -188,7 +200,79 @@ if( isset($_POST['edit']) ){
         display: grid;
         justify-content: end;
     }
+    .show-data {
+        display: inline-block;
+        position: relative;
+        z-index: 999;
+    }
+    .show-data .show {
+        padding: 2px 12px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    .show-data .dropdown {
+        display: none;
+        grid-template-columns: 1fr;
+        position: absolute;
+        top: 90%;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+    }
+    .show-data .dropdown button {
+        display: block;
+        cursor: pointer;
+        padding: 2px 12px;
+        border: none;
+        background-color: #fff;
+        width: 100%;
+    }
+    .show-data .dropdown button:hover {
+        background-color: #ccc;
+    }
+    .show {
+        display: grid;
+        width:29px;
+        text-align: center;
+    }
+    .page {
+        display: flex;
+        grid-gap: 10px;
+        justify-content: end;
+        align-items: center;
+    }
+    .page button {
+        padding: 5px 12px;
+        border: 1px solid #ccc;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    .page button:hover {
+        background-color: #ccc;
+    }
+    .page .active {
+        color: #fff;
+        cursor: default;
+    }
+
 </style>
+<script>
+    // show data list product
+    $(document).ready(function(){
+        $('.show-data').click(function(){
+            $(this).find('.dropdown').toggle("show");
+        });
+
+        // page actiove
+        $('.page button').click(function(){
+            $('.page button').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
 <!-- list view -->
 <div class="card-wrp">
     <div class="card">
@@ -206,20 +290,49 @@ if( isset($_POST['edit']) ){
             <div class="row col-2">
                 <div class="entri">
                     <span>show</span>
-                    <select name="" id="">
+                    <div class="show-data">
+                        <div class="show"><?= PRODUCT_SHOW ?></div>
+                        <div class="dropdown">
+                            <form method="post">
+                                <input type="text" hidden name="input" value="10">
+                                <button name="show">10</button>
+                            </form>
+
+                            <form method="post">
+                                <input type="text" hidden name="input" value="25">
+                                <button name="show">25</button>
+                            </form>
+
+                            <form method="post">
+                                <input type="text" hidden name="input" value="50">
+                                <button name="show">50</button>
+                            </form>
+
+                            <form method="post">
+                                <input type="text" hidden name="input" value="100">
+                                <button name="show">100</button>
+                            </form>
+
+                            <form method="post">
+                                <input type="text" hidden name="input" value="">
+                                <button name="show">All</button>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- <select name="" id="">
                         <option value="1">10</option>
                         <option value="1">25</option>
                         <option value="1">50</option>
                         <option value="1">100</option>
                         <option value="1">All</option>
-                    </select>
+                    </select> -->
                     <span>entries</span>
                 </div>
                 <div class="tools">
                     <div class="input-submit">
                         <form method="post">
                             <button class="btn" name="exportExcel">Excel</button>
-                            <button class="btn">PDF</button>
+                            <!-- <button class="btn">PDF</button> -->
                         </form>
                     </div>
                 </div>
@@ -259,11 +372,6 @@ if( isset($_POST['edit']) ){
                                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
                                         </a>
-                                        <button class="btn-sm primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
-                                                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
-                                            </svg>
-                                        </button>
                                         <form method="post">
                                             <input type="text" name="id" hidden value="<?= $row['id']; ?>">
                                             <input type="text" name="image" hidden value="<?= $row['image']; ?>">
@@ -279,6 +387,24 @@ if( isset($_POST['edit']) ){
                         </tr>
                     <?php endforeach; ?>
                 </table>
+            </div>
+            <div class="page">
+                <?php
+                        $queryAll = "SELECT * FROM product";
+                        $produk = $db->query($queryAll);
+                        $produk = $db->resultSet();
+                        $total_produk = $db->rowCount();
+                        $page = ceil($total_produk / $p->getShow());
+                        if($page > 1) {
+                            for($i = 1; $i <= $page; $i++) { ?>
+                                <form method="post">
+                                    <input value='<?= $i ?>' hidden name='page-count'>
+                                    <button name="submit-page"><?= $i ?></button>
+                                </form>
+                            <?php }
+                        }
+                    ?>
+
             </div>
         </div>
     </div>

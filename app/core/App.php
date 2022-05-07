@@ -1,13 +1,16 @@
 <?php 
 class App {
+    // uri
 
     function __construct()
     {
         session_start();
         new DateTimeZone(TIMEZONE);
         date_default_timezone_set(TIMEZONE);
-
+        
     }
+
+    // geter a variable
 
     public function getURI(){
         $file = $_SERVER['SCRIPT_NAME'];
@@ -63,6 +66,7 @@ class App {
         $db->query($query);
         $db->execute();
     }
+
 
 
 }

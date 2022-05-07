@@ -10,7 +10,7 @@
 if( isset($_SERVER['REQUEST_SCHEME']) ){
     $uri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'];
 }else {
-    $uri = '127.0.0.1:3000'; // or localhost:3000
+    $uri = '127.0.0.1:3000'; // or localhost:8000
 }
 define("SERVER", $uri);
 define("BASE", "http://" . $uri); 
@@ -27,7 +27,7 @@ define("NAME", "KASIRAN");
 define('LOGO', '/assets/img/logo.png');
 define('LOGO_WEB', '/assets/img/logo_web.png');
 define('TIMEZONE', 'Asia/Jakarta');
-$curent = "dark";
+$curent = "pink";
 if( $curent == "dark" ){
     define("SIDE_COLOR", "#fff");
     define("BG_COLOR", "#1c1c1c");
@@ -53,3 +53,9 @@ if( $curent == "dark" ){
     define("BG_COLOR_THIRD", "#00A0BD"); // custom
     define("BG_COLOR_FOURTH", "#1C585C"); // custom
 }
+
+// product config
+$show = 10;
+$page = 1;
+define("PRODUCT_SHOW", $show);
+define("PRODUCT_PAGE", $page);

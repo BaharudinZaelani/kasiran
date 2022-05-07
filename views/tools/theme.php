@@ -95,7 +95,8 @@ if( isset($_POST['dark']) ) {
     }else if ( strpos($content, '$curent = "custom";') !== false ) {
         file_put_contents($file,str_replace('$curent = "custom";','$curent = "teahijau";',file_get_contents($file)));
     }
-    echo '<script>location.href = "' . BASE . '?tools=theme"</script>';
+    // echo '<script>location.href = "' . BASE . '?tools=theme"</script>';
+    $app->redirect(BASE . '?tools=theme');
 
 }
 ?>

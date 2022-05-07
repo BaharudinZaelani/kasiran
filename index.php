@@ -4,7 +4,11 @@ include 'app/init.php';
 
 $app = new App();
 $db = new Database();
+$p = new Produk();
+
 $app->auth('auth');
+
+
 if( isset($_POST['logout']) ){
     $app->logout();
 }
