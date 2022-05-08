@@ -9,7 +9,9 @@
  * $_SERVER['HTTP_HOST'] . '/kasiran/'
 */
 if( isset($_SERVER['REQUEST_SCHEME']) ){
-    $uri = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $pex = explode('/', $_SERVER['REQUEST_URI']);
+    $project_name = $pex[1];
+    $uri = $_SERVER['HTTP_HOST'] . '/' . $project_name;
 }else {
     $uri = '127.0.0.1:3000'; // or localhost:8000
 }
