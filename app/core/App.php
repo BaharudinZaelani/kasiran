@@ -7,7 +7,6 @@ class App {
         session_start();
         new DateTimeZone(TIMEZONE);
         date_default_timezone_set(TIMEZONE);
-        
     }
 
     // geter a variable
@@ -24,21 +23,21 @@ class App {
         if($param === "auth"){
             if( isset($_SESSION['admin']) ){
                 if ( $file !== 'index.php' ) {
-                    header("Location: " . '/index.php');
+                    header("Location: " . BASE . '/index.php');
                     exit;
                 }
             }else {
-                header("Location: " . '/login.php');
+                header("Location: " . BASE . '/login.php');
                 exit;
             }
         }elseif($param === "login"){
             if( !isset($_SESSION['admin']) ){
                 if ( $file !== 'login.php' ) {
-                    header("Location: " . '/login.php');
+                    header("Location: " . BASE . '/login.php');
                     exit;
                 }
             }else {
-                header("Location: " . '/index.php');
+                header("Location: " . BASE . '/index.php');
                 exit;
             }
         }
@@ -47,7 +46,7 @@ class App {
     public function logout(){
         unset($_SESSION['admin']);
         session_destroy();
-        header("Location: /login.php");
+        header("Location: ". BASE ."/login.php");
     }
 
     public function forAdmin(){
@@ -66,9 +65,5 @@ class App {
         $db->query($query);
         $db->execute();
     }
-
-    
-
-
 
 }

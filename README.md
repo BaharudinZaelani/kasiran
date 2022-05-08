@@ -47,7 +47,7 @@ beberapa fitur dari aplikasi Kasiran
   - Pink
   - Tea
 - Tambah Produk
-- Hapus Profuk
+- Hapus Produk
 - Export produk ke excel
 - Backup Produk
 - Memenej Laporan produk bertambah setiap bulan

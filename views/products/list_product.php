@@ -92,9 +92,16 @@ if( isset($_POST['exportExcel']) ){
 }
 // delete product
 if( isset($_POST['hapus']) ){
+    $name = $_POST['name'];
     $id = $_POST['id'];
     $image = $_POST['image'];
-    unlink($image);
+    if( isset($image) ){
+        unlink($image);
+    }
+    // add to log
+    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], "Menghapus produk $name", time::now());
+
+    // delete product
     $query = "DELETE FROM product WHERE id = '$id'";
     $db->query($query);
     if( $db->execute() ){
@@ -122,7 +129,6 @@ if( isset($_POST['hapus']) ){
 }
 
 // edit
-$file = new Fileuploader();
 if( isset($_POST['edit']) ){
     $id = $_POST['id'];
     $name = $_POST['name'];
@@ -384,6 +390,7 @@ if( isset($_POST['edit']) ){
                                             </svg>
                                         </a>
                                         <form method="post">
+                                            <input type="text" hidden name="name" value="<?= $row['name']; ?>">
                                             <input type="text" name="id" hidden value="<?= $row['id']; ?>">
                                             <input type="text" name="image" hidden value="<?= $row['image']; ?>">
                                             <button name="hapus" class="btn-sm danger">

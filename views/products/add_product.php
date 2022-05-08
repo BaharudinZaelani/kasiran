@@ -1,7 +1,6 @@
 <!-- php data -->
 <?php 
 use Carbon\Carbon as time; 
-$app->forAdmin();
 $file = new Fileuploader();
 if( isset($_POST['tambah']) ) {
 
