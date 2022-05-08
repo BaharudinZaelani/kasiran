@@ -1,5 +1,6 @@
-<?php 
+<?php
 
+use Carbon\Carbon;
 
 class Fileuploader {
 
@@ -9,6 +10,12 @@ class Fileuploader {
             $result .= mt_rand(0, 9);
         }
         return $result;
+    }
+
+    public function getTimeNow() {
+        $time = Carbon::now();
+        $time = $time->format('Y-m-d');
+        return $time;
     }
 
     // image upload
@@ -46,17 +53,17 @@ class Fileuploader {
     public function uploadDatabase($fileName, $fileType, $fileSize, $fileTmpName, $tabel) {
         $msg = '';
         $status = false;
-        $targetFile = 'migrate/' . basename($tabel . '.sql');
+        $targetFile = 'migrate/' . basename($tabel . '.ksr');
         // if file exist
         if( file_exists($targetFile) ) {
             unlink($targetFile);
         }
-        // if not php file
+        // if not ksr file
         $fn = $fileName;
         $ff = explode('.', $fn);
         $fr = end($ff); 
-        if( $fr != 'sql' ) {
-            $msg = 'File harus berupa file sql';
+        if( $fr != 'ksr' ) {
+            $msg = 'File harus berupa file ksr';
             $status = false;
         }else {
             // check if this php file
@@ -92,32 +99,51 @@ class Fileuploader {
         if( file_exists($file) ) {
             unlink($file);
         }
+
+        echo '<script>alert("File berhasil dihapus");</script>';
     }
 
     // sql import 
     public function sqlImport($fileName) {
         global $db;
-        $db->query("DROP TABLE product");
-        $db->execute();
-        $conn = mysqli_connect(HOST, USER, PASS, DB_NAME);
-
-        $query = '';
         $sqlScript = file($fileName);
-        foreach ($sqlScript as $line)	{
-            
-            $startWith = substr(trim($line), 0 ,2);
-            $endWith = substr(trim($line), -1 ,1);
-            
-            if (empty($line) || $startWith == '--' || $startWith == '/*' || $startWith == '//') {
-                continue;
-            }
-                
-            $query = $query . $line;
-            if ($endWith == ';') {
-                mysqli_query($conn,$query) or die('<div class="error-response sql-import-response">Problem in executing the SQL query <b>' . $query. '</b></div>');
-                $query= '';		
+        foreach ($sqlScript as $line) {
+            $endWith = substr_replace($line ,"", -1);
+            try{
+                $db->query($endWith);
+                $db->execute();
+            }catch(Exception $e){
+                echo $e->getMessage();
             }
         }
+    }
+
+    public function createDataBackup($table){ 
+        global $db;
+        $baseQuery = "INSERT INTO `product` (`id`, `name`, `image`, `type`, `category`, `quantity`, `tax`, `cost`, `price`, `for_per_item`, `created_at`, `updated_at`) VALUES ";
+        $query = $db->query("SELECT * FROM `$table`");
+        $data = $db->resultSet();
+
+        $tmpQuery = '';
+        foreach ($data as $key => $value) {
+            $tmpQuery .= "(NULL, '".$value['name']."', '".$value['image']."', '".$value['type']."', '".$value['category']."', '".$value['quantity']."', '".$value['tax']."', '".$value['cost']."', '".$value['price']."', '".$value['for_per_item']."', '".$value['created_at']."', '".$value['updated_at']."'),";
+        }
+        $fn = $this->getTimeNow() . '_' . $table . '.ksr';
+        $fileBP = 'dl/backup/'. $fn;
+        $cFile = fopen($fileBP, 'w') or die("Unable to open file!");
+        fwrite($cFile, $baseQuery.$tmpQuery);
+        fclose($cFile);
+
+        return $fn;
+    }
+
+    public function download($to = "", $file = ""){
+        $uri =  BASE . '/download.php' . "?dl=$to&file=$file";
+        echo '
+            <script>
+                window.open("'. $uri .'");
+            </script>
+        ';
     }
 
 }

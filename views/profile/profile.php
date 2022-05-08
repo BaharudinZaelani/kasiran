@@ -46,14 +46,21 @@ if( isset($_POST['select-image-log']) ){
     $_SESSION['admin']['image'] = $image;
     $app->redirect('/?key=profile-setting');
 }
+
+// edit password
+if( isset($_POST['edit-password']) ) {
+    $id = $_SESSION['admin']['id'];
+    $newPassword = $_POST['new_password'];
+    $oldPassword = $_POST['old_password'];
+    $ee = $userController->editPassword($id, $newPassword, $oldPassword);
+}
 ?>
 <!-- scoped style -->
 <style>
     .log-image {
         display: flex;
-        padding-bottom: 32px;
+        padding-bottom: 12px;
         margin-top: 6px;
-        border-bottom: 1px solid <?= BG_COLOR; ?>;
     }
     .log-image img{
         width: 100px;
@@ -109,7 +116,6 @@ if( isset($_POST['select-image-log']) ){
                                     <div class="log-image">
                                         <img src="<?= $imageLogResult ?>">
                                         <div class="sc">
-                                            <h4><?= $imageLogExplode[0] ?></h4>
                                             <div class="time">
                                                 <div class="date">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
@@ -133,11 +139,8 @@ if( isset($_POST['select-image-log']) ){
                                             </div>
                                         </div>
                                     </div>
-                            <?php } 
-                            }else{
-                                echo '<div class="log-image">No Recent Image Log</div>';
-                            }
-                            ?>
+                                <?php } 
+                            }?>
                         </div>
                     </div>
                 </div>
@@ -169,25 +172,27 @@ if( isset($_POST['select-image-log']) ){
                 <h4>Password</h4>
             </div>
             <div class="card-body">
-                <div class="row col-2">
-                    <div>
-                        <div class="input-group">
-                            <label for="name"><b>Password Lama</b></label>
-                            <input type="password" class="form-control" placeholder="Password Lama" id="old_password">
+                <form method="post">
+                    <div class="row col-2">
+                        <div>
+                            <div class="input-group">
+                                <label for="name"><b>Password Lama</b></label>
+                                <input type="password" class="form-control" placeholder="Password Lama" id="old_password" name="old_password">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="input-group">
+                                <label for="name"><b>Password Baru</b></label>
+                                <input type="password" class="form-control" placeholder="Password Baru" id="new_password" name="new_password">
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="input-group">
-                            <label for="name"><b>Password Baru</b></label>
-                            <input type="password" class="form-control" placeholder="Password Baru" id="new_password">
+                    <div class="row">
+                        <div class="input-submit mt-1">
+                            <button class="primary" name="edit-password">Ganti Password</button>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-submit mt-1">
-                        <button class="primary">Ganti Password</button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </form>

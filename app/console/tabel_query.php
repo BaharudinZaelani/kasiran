@@ -47,6 +47,7 @@ $tabel_produk = "CREATE TABLE IF NOT EXISTS product (
   tax INT(11) NOT NULL,
   cost INT(255) NOT NULL,
   price INT(255) NOT NULL,
+  for_per_item VARCHAR(255),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -102,4 +103,3 @@ $tabel_transaksi = "CREATE TABLE IF NOT EXISTS transaksi (
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (barang_id) REFERENCES product(id)
 )";
-

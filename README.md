@@ -12,10 +12,13 @@ cocok untuk usaha / organisasi kecil dan menengah.
 $ composer install
 
 # for create database
-$ php kasiran --create-db
+$ php kasiran --setup-db
+$ 1 ( untuk membuat database jika tidak ada )
 
 # With create table
-$ php kasiran start
+$ php kasiran --setup-tb
+$ 1 ( Membuat semua tabel yang dibutuhkan aplikasi )
+$ 2 ( Menambahkan 1 data admin pada database )
 
 # serve with hot reload at http://127.0.0.1:3000/
 $ php kasiran serve
@@ -23,8 +26,12 @@ $ php kasiran serve
 
 
 ## Role 
-- Admin 
+- Admin
+  - email     : admin@gmail.com
+  - password  : admin
 - Kasir
+  - email     : kasir@gmail.com
+  - password  : kasir
 
 ## Fitur dari aplikasi
 beberapa fitur dari aplikasi Kasiran
@@ -33,27 +40,28 @@ beberapa fitur dari aplikasi Kasiran
  - Login sebagai Admin
  - Login sebagai Kasir
 
-**Custom Tema Dalam Aplikasi**
+**Aplikasi**
 - Custom Color (Mengatur warna website sesuai keinginan)
 - Theme (Memilih langsung tema yang sudah disediakan)
   - Dark 
   - Pink
   - Tea
-- Custom profile image
+- Tambah Produk
+- Hapus Profuk
+- Export produk ke excel
+- Backup Produk
+- Memenej Laporan produk bertambah setiap bulan
+- Memenej semua stock yang telah ditambahkan / bulan
+- Mengontrol aktifitas admin dan kasir
+- Reset data aplikasi
+- Memulihkan data yang telah di backup
+
 - Admin 
   - Edit nama
   - Edit Email
   - Edit avatar
-  - Edit Password (x)
-  - Edit no_tlp (x)
-  - Edit alamat (x)
-  - Edit role Kasir (x)
-  - Edit no_tlp Kasir (x)
-  - Edit alamat Kasir (x)
-  - Tambah user Kasir (x)
-  - Hapus user Kasir (x)
+  - Edit Password
 - Kasir
   - Edit nama
   - Edit Email
   - Edit avatar
-  - Edit Password (x)

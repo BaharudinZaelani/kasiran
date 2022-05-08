@@ -11,205 +11,16 @@ $app->auth('auth');
 
 if( isset($_POST['logout']) ){
     $app->logout();
+    $app->redirect('login.php');
 }
 include 'views/header.php'; 
 ?>
 <style>
-    a {
-        text-decoration: none;
-    }
-    .primary {
-        color: white !important;
-    }
-    .card button {
-        background-color: <?= BG_COLOR_SECOND; ?>;
-        font-weight: bold;
-    }
     .wrp{
         height: 100vh !important;
         overflow: hidden !important;
         width: 100vw !important;
         background-color: <?= BG_COLOR_FOURTH; ?> !important;
-    }
-    .container {
-        display: grid;
-        grid-template-columns: 1fr 85vw;
-        height: 100%;
-    }
-
-    /* sidebar */
-    .col-sidebar {
-        background-color: <?= BG_COLOR_SECOND; ?>;
-        color: <?= SIDE_COLOR; ?> !important;
-        position: relative;
-    }
-    .side-body {
-        margin: 12px 0;
-        height: 80vh;
-        overflow: auto;
-    }
-    .side-header {
-        width: 100%;
-        height: 50px;
-        display: grid;
-        justify-content: center;
-        align-items: center;
-    }
-    .side-footer {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        height: 50px;
-        background-color: <?= BG_COLOR; ?>;
-        display: grid;
-        align-items: center;
-        justify-content: center;
-    }
-    .side-body .list-nav {
-        padding: 0 8px;
-        height: 100%;
-    }
-    .side-body .list-nav ul {
-        list-style: none;
-    }
-    .side-body .list-nav ul .list-item {
-        margin-bottom: 12px;
-    }
-    .sub-nav a {
-        color: <?= SIDE_COLOR; ?> !important;
-    }
-    .side-body .list-nav ul .list-item .title{
-        color: <?= SIDE_COLOR; ?> !important;
-        border: none;
-        display: grid;
-        align-items: center;
-        grid-template-columns: 15% auto;
-        cursor: pointer;
-        padding: 0;
-        margin: 0;
-        padding: 12px;
-        background-color: <?= BG_COLOR_THIRD; ?>;
-    }
-    .hide {
-        height: 0px !important;
-        overflow: hidden !important;
-    }
-    .side-body .list-nav ul .list-item .sub-nav {
-        height: 150px;
-        overflow: hidden;
-        background-color: <?= BG_COLOR; ?>;
-        padding: 4px;
-    }
-    .side-body .list-nav ul .list-item .sub-nav li:hover {
-        cursor: pointer;
-        background-color: <?= BG_COLOR_SECOND; ?> !important;
-    }
-    .side-body .list-nav ul .list-item .sub-nav li {
-        padding: 12px;
-    }
-    .side-body .list-nav ul .list-item .sub-nav li a{
-        display: block;
-        height: 100%;
-        width: 100%;
-    }
-
-    /* content */
-    .col-content .navbar {
-        border-left: 1px solid <?= BG_COLOR_SECOND; ?>;
-        height: 50px;
-        background-color: <?= BG_COLOR; ?>;
-    }
-    .col-content .content {
-        padding: 12px;
-    }
-
-    /* dropdown */
-    .nav-dropdown {
-        display: none;
-    }
-    .navbar {
-        padding: 0 7px;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        justify-items: end;
-        align-items: center;
-    }
-    .navbar .head {
-        color: #fff;
-    }
-    .navbar .user {
-        padding: 0 12px;
-        height: 100%;
-        display: grid;
-        justify-content: center;
-        align-items: center;
-    }
-    .navbar .user:hover {
-        background-color: <?= BG_COLOR_FOURTH; ?>;
-    }
-    .head {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        grid-gap: 12px;
-    }
-    .username {
-        margin-top: -4px;
-    }
-    #nav-dropdown {
-        position: relative;
-    }
-    .sub-navbar {
-        z-index: 999;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        position: absolute;
-        top: 50px;
-        background-color: <?= BG_COLOR_SECOND; ?>;
-        width: 380px;
-        right: 0;
-    }
-    .sub-navbar button {
-        text-align: left;
-        background-color: <?= BG_COLOR; ?>;
-        margin: 4px 0;
-        color: #fff;
-        border: none;
-        padding: 12px;
-        cursor: pointer;
-    }
-    .navbar-footer {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        justify-content: end;
-        align-items: center;
-        padding: 0 12px;
-        height: 50px;
-        background-color: <?= BG_COLOR; ?>;
-    }
-    .navbar-footer button, .navbar-footer a {
-        border-radius: 5px;
-        padding: 5px 12px;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-    .sub-navbar-header {
-        padding: 12px 0;
-    }
-    .sub-navbar-title {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        grid-gap: 12px;
-    }
-    .sub-nav-title {
-        text-align: center;
-        width: 100%;
-        color: #fff;
-    }
-    .avatar {
-        justify-content: center;
-        display: grid;
     }
 </style>
 <div class="container">
@@ -264,7 +75,7 @@ include 'views/header.php';
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
                                     <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
                                 </svg> 
-                                PRODUCTS
+                                PRODUK
                             </div> 
                             <div class="sub-nav hide">
                                 <ul>
@@ -286,10 +97,10 @@ include 'views/header.php';
                                 <div class="sub-nav hide">
                                     <ul>
                                         <li>
-                                            <a href="?tools=import" class="text-light">Import Table</a>
+                                            <a href="?tools=import" class="text-light">Import Tabel</a>
                                         </li>
                                         <li>
-                                            <a href="?tools=theme" class="text-light">Theme</a>
+                                            <a href="?tools=theme" class="text-light">Tema Web</a>
                                         </li>
                                     </ul>
                                 </div>

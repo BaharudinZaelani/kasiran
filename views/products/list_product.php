@@ -6,6 +6,8 @@ use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Common\Entity\Style\Border;
 use Carbon\Carbon as time;
 
+$file = new Fileuploader();
+
 $uri = $_SERVER['REQUEST_URI'];
 
 // edit page
@@ -14,6 +16,7 @@ if( isset($_POST['submit-page']) ) {
     $p->setPage((int)$page);
 }
 
+// edit show
 if( isset($_POST['show']) ){
     $show = $_POST['input'];
     $p->setShow((int)$show);
@@ -24,6 +27,13 @@ if( isset($_POST['show']) ){
 $query = $p->queryString();
 $produk = $db->query($query);
 $result = $db->resultSet();
+
+// export sql
+if( isset($_POST['exportSql']) ){
+    $fp = $file->createDataBackup('product');
+    $file->download('download-ksr', $fp);
+}
+
 // export excel
 if( isset($_POST['exportExcel']) ){
 
@@ -76,12 +86,11 @@ if( isset($_POST['exportExcel']) ){
     
 
     $writer->close();
-    ?>
-    <script>
-        window.open("<?= BASE ?>/download.php?dl=excel");
-    </script>
-<?php
+    $file->download('download-excel', 'product.xlsx');
+    
+
 }
+// delete product
 if( isset($_POST['hapus']) ){
     $id = $_POST['id'];
     $image = $_POST['image'];
@@ -109,6 +118,7 @@ if( isset($_POST['hapus']) ){
             })
         </script>';
     }
+    $app->redirect('?tools=product-list');
 }
 
 // edit
@@ -157,6 +167,7 @@ if( isset($_POST['edit']) ){
     }
     $app->redirect($uri);
 }
+
 ?>
 <style>
     /* style here */
@@ -332,7 +343,7 @@ if( isset($_POST['edit']) ){
                     <div class="input-submit">
                         <form method="post">
                             <button class="btn" name="exportExcel">Excel</button>
-                            <!-- <button class="btn">PDF</button> -->
+                            <button class="btn" name="exportSql">KSR</button>
                         </form>
                     </div>
                 </div>

@@ -1,17 +1,21 @@
 <?php 
 if( isset($_GET['dl']) ){
-    if( $_GET['dl'] == 'excel' ){
-        $filepath = 'dl/product/product.xlsx';
-        header('Content-Description: File Transfer');
-        header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . filesize($filepath));
-        flush(); // Flush system output buffer
-        readfile($filepath);
+    $key = $_GET['dl'];
+    $filepath = $_GET['file'];
+    if( $key == 'download-excel'){
+        $filepath = 'dl/product/' . $_GET['file'];
+    }else if($key == 'download-ksr'){
+        $filepath = 'dl/backup/' . $_GET['file'];
     }
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename="'.basename($filepath).'"');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate');
+    header('Pragma: public');
+    header('Content-Length: ' . filesize($filepath));
+    flush(); // Flush system output buffer
+    readfile($filepath);
 }
 ?>
 <!DOCTYPE html>

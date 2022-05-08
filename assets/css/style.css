@@ -57,7 +57,7 @@ form {
     padding: 12px;
 }
 .card-wrp .card .card-footer {
-    height: 20px;
+    min-height: 20px;
     display: grid;
     align-items: center;
     padding: 12px;
@@ -89,6 +89,9 @@ form {
 }
 
 /* style */
+.mb-1 {
+    margin-bottom: 1rem !important;
+}
 .image-view {
     display: grid;
     justify-content: left;

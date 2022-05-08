@@ -1,12 +1,12 @@
 <!-- php data -->
 <?php 
 use Carbon\Carbon;
-$p = new Produk();
 
+$p = new Produk();
+$dt = Carbon::now();
 
 
 // setup
-$dt = Carbon::now();
 $januari = [
     'produk' => $p->productCountMonthly("$dt->year-01"),
     'modal' => $p->stockCount("$dt->year-01"),
@@ -174,6 +174,7 @@ $desember = [
         margin-right: 10px;
     }
 </style>
+
 <!-- html -->
 <div>
     <!-- <div class="welcome">
@@ -199,7 +200,7 @@ $desember = [
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                                     <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                                 </svg>
-                                <span>Add Product</span>
+                                <span>Tambah Produk</span>
                             </div>
                         </a>
                     </div>
@@ -213,11 +214,37 @@ $desember = [
         <div class="card-wrp">
             <div class="card">
                 <div class="card-header">
-                    <h3>Product Chart <?= $dt->year?></h3>
+                    <h3>Laporan Produk <?= $dt->year?></h3>
                 </div>
                 <div class="card-body">
-                    <div class="alert">
+                    <div class="alert mb-1">
                         <canvas id="product"></canvas>
+                    </div>
+                    <div class="row col-2 mt-1">
+                        <?php 
+                            // product monthly 
+                            $monthNow = $dt->startOfWeek()->format('Y-m');
+                            $now = $p->productCountMonthly("$monthNow");
+
+                            // stock monthly
+                            $stockNow = $p->stockCount("$monthNow");
+                        ?>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Produk <?= $monthNow; ?></h3>
+                            </div>
+                            <div class="card-body">
+                                <h1>+ <?= $now; ?></h1>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Stock <?= $monthNow; ?></h3>
+                            </div>
+                            <div class="card-body">
+                                <h1>+ <?= $stockNow; ?></h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -240,7 +267,7 @@ $desember = [
         </div>
 
         <!-- action log -->
-        <div class="card-wrp">
+        <div class="card-wrp mt-1">
             <div class="card">
                 <div class="card-header">
                     <h3>Action Log</h3>

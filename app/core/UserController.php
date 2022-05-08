@@ -10,9 +10,13 @@ class UserController{
         if( $admin ){
             if( $pw === $admin['password']) {
                 return true;
-            } else {
-                return false;
             }
+
+            if( password_verify($pw, $admin['password']) ) {
+                return true;
+            }
+
+            return false;
         }
     }
     
@@ -52,5 +56,36 @@ class UserController{
                 })
             </script>
         ';
+    }
+
+    public function editPassword($id, $newPassword, $oldPassword){
+        global $db;
+        $err = true;
+        $msg = 'Password gagal diubah';
+        $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+        if( $this->adminCheck($oldPassword, $id) ){
+            $query = "UPDATE `user` SET `password` = '$newPassword' WHERE `user`.`id` = $id;";
+            $db->query($query);
+            $db->execute();
+
+            // edit session
+            $_SESSION['admin']['password'] = $newPassword;
+
+            $err = false;
+            $msg = 'Login kembali dengan password baru';
+        }
+
+        echo '<script>
+                Swal.fire({
+                    title: "'. NAME .' Says !",
+                    text: "' . $msg . '",
+                    icon: "' . ($err ? 'error' : 'success') . '",
+                    confirmButtonText: "OKE !",
+                    confirmButtonColor: "'. ($err ? '#e74a3b' : '#2b982b') .'"
+                })
+            </script>
+        ';
+
+        return ['err' => $err, 'msg' => $msg];
     }
 }

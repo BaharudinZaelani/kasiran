@@ -27,7 +27,7 @@ define("NAME", "KASIRAN");
 define('LOGO', '/assets/img/logo.png');
 define('LOGO_WEB', '/assets/img/logo_web.png');
 define('TIMEZONE', 'Asia/Jakarta');
-$curent = "pink";
+$curent = "teahijau";
 if( $curent == "dark" ){
     define("SIDE_COLOR", "#fff");
     define("BG_COLOR", "#1c1c1c");

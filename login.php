@@ -6,12 +6,17 @@ $app->auth('login');
 $error = false;
 
 // echo password_hash('admin', PASSWORD_DEFAULT);
-
+$_SESSION['username'] = "";
 
 if( isset($_POST['login']) ) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $getAdmin = "SELECT * FROM `user` WHERE `username` = '". $username . "'";
+
+    // session email
+    $_SESSION['username'] = $username;
+
+    // Check if the username exists
+    $getAdmin = "SELECT * FROM `user` WHERE `email` = '". $username . "'";
     $database->query($getAdmin);
     $admin = $database->single();
     if( $admin ){
@@ -139,19 +144,19 @@ if( isset($_POST['login']) ) {
             <h1><?= NAME; ?> - Login</h1>
             <?php if($error) : ?>
                 <div class="error">
-                    <span>Invalid username or password</span>
+                    <span>Invalid email or password</span>
                 </div>
             <?php endif;?>
         </div>
         <div class="login-body">
             <form method="post">
                 <div class="input-group">
-                    <!-- username -->
+                    <!-- email -->
                     <div class="input">
                         <div class="label">    
-                            <label for="username">Username</label>
+                            <label for="username">Email</label>
                         </div>
-                        <input type="text" name="username" id="username" placeholder="...">
+                        <input type="text" name="username" id="username" placeholder="..." value="<?= $_SESSION['username']; ?>">
                     </div>
                     <!-- password -->
                     <div class="input">
