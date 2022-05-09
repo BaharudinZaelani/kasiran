@@ -33,7 +33,7 @@ include 'views/header.php';
             <div class="list-nav">
                 <ul>
                     <li class="list-item">
-                        <a class="title" href="<?= BASE . '/pos.php'; ?>">
+                        <a class="title" href="<?= BASE; ?>?key=pos">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
                                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
                             </svg>
@@ -62,8 +62,8 @@ include 'views/header.php';
                                 </div> 
                                 <div class="sub-nav hide">
                                     <ul>
-                                        <li><a href="?tools=user-list" class="text-light">List Kasir</a></li>
-                                        <li><a href="?tools=user-add" class="text-light">Tambah Kasir</a></li>
+                                        <li><a href="<?= BASE; ?>?tools=user-list" class="text-light">List Kasir</a></li>
+                                        <li><a href="<?= BASE; ?>?tools=user-add" class="text-light">Tambah Kasir</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -79,8 +79,9 @@ include 'views/header.php';
                             </div> 
                             <div class="sub-nav hide">
                                 <ul>
-                                    <li><a href="?tools=product-list" class="text-light">List Products</a></li>
-                                    <li><a href="?tools=product-add" class="text-light">Tambah Products</a></li>
+                                    <li><a href="<?= BASE; ?>?tools=product-add" class="text-light">Tambah Products</a></li>
+                                    <li ><a href="<?= BASE; ?>?tools=product-list" class="text-light">Daftar Products</a></li>
+                                    <li><a href="<?= BASE; ?>?tools=kategory" class="text-light">Kategory dan Type</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -97,10 +98,10 @@ include 'views/header.php';
                                 <div class="sub-nav hide">
                                     <ul>
                                         <li>
-                                            <a href="?tools=import" class="text-light">Import Tabel</a>
+                                            <a href="<?= BASE; ?>?tools=import" class="text-light">Import Tabel</a>
                                         </li>
                                         <li>
-                                            <a href="?tools=theme" class="text-light">Tema Web</a>
+                                            <a href="<?= BASE; ?>?tools=theme" class="text-light">Tema Web</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -160,6 +161,9 @@ include 'views/header.php';
                 else if($_GET['tools'] == 'product-add'){
                     include 'views/products/add_product.php';
                 }
+                else if($_GET['tools'] == 'kategory'){
+                    include 'views/products/kategory.php';
+                }
 
                 // utilites
                 else if($_GET['tools'] == 'import'){
@@ -167,7 +171,8 @@ include 'views/header.php';
                 }
                 else if($_GET['tools'] == 'theme'){
                     include 'views/tools/theme.php';
-                }else {
+                }
+                else {
                     $app->redirect();
                 }
 
@@ -176,7 +181,14 @@ include 'views/header.php';
                 // profile-setting
                 if ($_GET['key'] == 'profile-setting') {
                     include 'views/profile/profile.php';
-                }else {
+                }
+                
+                // pos-view
+                else if($_GET['key'] == 'pos'){
+                    include 'views/pos/pos.php';
+                }
+                
+                else {
                     $app->redirect();
                 }
             } else {

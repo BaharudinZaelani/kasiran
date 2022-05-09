@@ -101,12 +101,10 @@ if( isset($_POST['deleteProduct']) ){
         <div class="card-body">
             <!-- product tabel -->
             <div class="row col-2">
-                <div class="alert log">
-                    <h3>Log</h3>
-                    <div class="hr"></div>
+                <div class="log">
                     <table class="tabel">
                         <tr>
-                            <th>File</th>
+                            <th>File Name</th>
                             <th>Tahun</th>
                             <th>Bulan</th>
                             <th>Tanggal</th>

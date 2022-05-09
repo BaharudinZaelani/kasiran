@@ -42,17 +42,27 @@ class Produk {
     public function queryString() {
         $query = "";
 
-        if( $this->page > 1 ) {
-            $query .= " LIMIT " . ($this->page - 1) * $this->show . ", " . $this->show;
-        }else {
-            $query .= " LIMIT 0, " . $this->show;
+        if ( $this->show !== 0 ){
+            if( $this->page > 1 ) {
+                $query .= "ORDER BY id DESC LIMIT " . ($this->page - 1) * $this->show . ", " . $this->show;
+            }else {
+                $query .= "ORDER BY id DESC LIMIT 0, " . $this->show;
+            }
         }
-        return "SELECT * FROM product ORDER BY id DESC " . $query;
+        return "SELECT * FROM product " . $query;
     }
 
-    // count profit
-    public function profit($price, $quantity) {
-        return $price * $quantity;
+    // count total cost
+    public function totalCost($date) {
+        global $db;
+        $total = 0;
+        $query = "SELECT * FROM product WHERE created_at LIKE '%$date%'";
+        $db->query($query);
+        $result = $db->resultSet();
+        foreach ($result as $row) {
+            $total += $row['cost'] * $row['quantity'];
+        }
+        return $total;
     }
 
     // monthly add product

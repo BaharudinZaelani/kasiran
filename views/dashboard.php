@@ -71,85 +71,83 @@ $desember = [
 
     /* clock */
     .clock-wrp {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: #D9D7DD;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .clock {
-    border-radius: 100%;
-    background: #ffffff;
-    font-family: "Montserrat";
-    border: 5px solid white;
-    box-shadow: inset 2px 3px 8px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 100%;
+        background: #ffffff;
+        font-family: "Montserrat";
+        border: 5px solid white;
+        box-shadow: inset 2px 3px 8px 0 rgba(0, 0, 0, 0.1);
     }
 
     .wrap {
-    overflow: hidden;
-    position: relative;
-    width: 350px;
-    height: 350px;
-    border-radius: 100%;
+        overflow: hidden;
+        position: relative;
+        width: 350px;
+        height: 350px;
+        border-radius: 100%;
     }
 
     .minute,
     .hour {
-    position: absolute;
-    height: 100px;
-    width: 6px;
-    margin: auto;
-    top: -27%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: black;
-    transform-origin: bottom center;
-    transform: rotate(0deg);
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-    z-index: 1;
+        position: absolute;
+        height: 100px;
+        width: 6px;
+        margin: auto;
+        top: -27%;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: black;
+        transform-origin: bottom center;
+        transform: rotate(0deg);
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+        z-index: 1;
     }
 
     .minute {
-    position: absolute;
-    height: 130px;
-    width: 4px;
-    top: -38%;
-    left: 0;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
-    transform: rotate(90deg);
+        position: absolute;
+        height: 130px;
+        width: 4px;
+        top: -38%;
+        left: 0;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+        transform: rotate(90deg);
     }
 
     .second {
-    position: absolute;
-    height: 90px;
-    width: 2px;
-    margin: auto;
-    top: -26%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    border-radius: 4px;
-    background: #FF4B3E;
-    transform-origin: bottom center;
-    transform: rotate(180deg);
-    z-index: 1;
+        position: absolute;
+        height: 90px;
+        width: 2px;
+        margin: auto;
+        top: -26%;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        border-radius: 4px;
+        background: #FF4B3E;
+        transform-origin: bottom center;
+        transform: rotate(180deg);
+        z-index: 1;
     }
 
     .dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 12px;
-    height: 12px;
-    border-radius: 100px;
-    background: white;
-    border: 2px solid #1b1b1b;
-    border-radius: 100px;
-    margin: auto;
-    z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 100px;
+        background: white;
+        border: 2px solid #1b1b1b;
+        border-radius: 100px;
+        margin: auto;
+        z-index: 1;
     }
 
     /* s */
@@ -210,39 +208,18 @@ $desember = [
     </div>
     <!-- product log -->
     <div class="row col-2 mt-1">
-        <!-- chart -->
+        
+        <!-- clock -->
         <div class="card-wrp">
             <div class="card">
-                <div class="card-header">
-                    <h3>Laporan Produk <?= $dt->year?></h3>
-                </div>
                 <div class="card-body">
-                    <div class="alert mb-1">
-                        <canvas id="product"></canvas>
-                    </div>
-                    <div class="row col-2 mt-1">
-                        <?php 
-                            // product monthly 
-                            $monthNow = $dt->startOfWeek()->format('Y-m');
-                            $now = $p->productCountMonthly("$monthNow");
-
-                            // stock monthly
-                            $stockNow = $p->stockCount("$monthNow");
-                        ?>
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Produk <?= $monthNow; ?></h3>
-                            </div>
-                            <div class="card-body">
-                                <h1>+ <?= $now; ?></h1>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Stock <?= $monthNow; ?></h3>
-                            </div>
-                            <div class="card-body">
-                                <h1>+ <?= $stockNow; ?></h1>
+                    <div class="clock-wrp">
+                        <div class="clock">
+                            <div class="wrap">
+                                <span class="hour"></span>
+                                <span class="minute"></span>
+                                <span class="second"></span>
+                                <span class="dot"></span>
                             </div>
                         </div>
                     </div>
@@ -250,17 +227,51 @@ $desember = [
             </div>
         </div>
 
-        <!-- Clock  -->
+        <!-- chart -->
         <div class="card-wrp">
             <div class="card">
-                <div class="card-body clock-wrp">
-                    <div class="clock">
-                        <div class="wrap">
-                            <span class="hour"></span>
-                            <span class="minute"></span>
-                            <span class="second"></span>
-                            <span class="dot"></span>
-                        </div>
+                <div class="card-header">
+                    <h3>Laporan Produk <?= $dt->year?></h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="product"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- lapor -->
+        <div class="card-wrp">
+            <div class="row col-2 mt-1">
+                <?php 
+                    // product monthly 
+                    $monthNow = $dt->startOfWeek()->format('Y-m');
+                    $now = $p->productCountMonthly("$monthNow");
+
+                    // stock monthly
+                    $stockNow = $p->stockCount("$monthNow");
+                ?>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Produk</h3>
+                    </div>
+                    <div class="card-body">
+                        <h1>+ <?= $now; ?></h1>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Stock</h3>
+                    </div>
+                    <div class="card-body">
+                        <h1>+ <?= $stockNow; ?></h1>
+                    </div>
+                </div>
+                <div class="card mt-1">
+                    <div class="card-header">
+                        <h3>Pengeluaran bulan ini</h3>
+                    </div>
+                    <div class="card-body">
+                        <h1>Rp <?= number_format($p->totalCost("$monthNow"),0,",","."); ?></h1>
                     </div>
                 </div>
             </div>
@@ -313,7 +324,6 @@ $desember = [
     <div class="row col-2 mt-1">
         <div class="card-wrp"></div>
     </div>
-</div>
 <script>
     const labels = [
         'January',

@@ -16,17 +16,29 @@ if( isset($_POST['submit-page']) ) {
     $p->setPage((int)$page);
 }
 
+// query product
+$queryData = $p->queryString();
+if( isset($_POST['search']) ){
+    $value = $_POST['search-value'];
+    $queryData = "SELECT * FROM `product` WHERE `name` LIKE '%$value%'";
+}
+
 // edit show
 if( isset($_POST['show']) ){
     $show = $_POST['input'];
-    $p->setShow((int)$show);
+    if( $_POST['input'] == 'All' ) {
+        $p->setShow(0);
+    }else {
+        $p->setShow((int)$show);
+    }
+
     $p->setPage(1);
 }
 
-// query product
-$query = $p->queryString();
-$produk = $db->query($query);
-$result = $db->resultSet();
+// jika show = 0, tampilkan semua
+if( $p->getShow() == 0 ) {
+    $value = 'All';
+}
 
 // export sql
 if( isset($_POST['exportSql']) ){
@@ -90,6 +102,7 @@ if( isset($_POST['exportExcel']) ){
     
 
 }
+
 // delete product
 if( isset($_POST['hapus']) ){
     $name = $_POST['name'];
@@ -174,28 +187,23 @@ if( isset($_POST['edit']) ){
     $app->redirect($uri);
 }
 
+// get product
+$produk = $db->query($queryData);
+$result = $db->resultSet();
+
+// get kategori
+$queryKat = "SELECT * FROM kategory";
+$db->query($queryKat);
+$category = $db->resultSet();
+
+// get type
+$queryType = "SELECT * FROM type";
+$db->query($queryType);
+$type = $db->resultSet();
+
 ?>
 <style>
     /* style here */
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th {
-        background-color: #515151;
-        color: #fff;
-        padding: 12px;
-    }
-    th, td {
-        padding: 12px;
-        text-align: left;
-        /* border: 1px solid #ccc; */
-        border-bottom: none;
-        border-top: none;
-    }
-    tr:hover {
-        background-color: #51515130;
-    }
     .intro {
         margin-bottom: 42px;
     }
@@ -257,8 +265,10 @@ if( isset($_POST['edit']) ){
     }
     .page {
         display: flex;
+        padding: 5px 0;
+        background-color: <?= BG_COLOR ?>;
         grid-gap: 10px;
-        justify-content: end;
+        justify-content: center;
         align-items: center;
     }
     .page button {
@@ -270,11 +280,10 @@ if( isset($_POST['edit']) ){
     .page button:hover {
         background-color: #ccc;
     }
-    .page .active {
-        color: #fff;
+    .page .product-<?= PRODUCT_PAGE ?> {
+        background-color: #f5f5f5;
         cursor: default;
     }
-
 </style>
 <script>
     // show data list product
@@ -310,6 +319,12 @@ if( isset($_POST['edit']) ){
                     <div class="show-data">
                         <div class="show"><?= PRODUCT_SHOW ?></div>
                         <div class="dropdown">
+
+                            <form method="post">
+                                <input type="text" hidden name="input" value="5">
+                                <button name="show">5</button>
+                            </form>
+
                             <form method="post">
                                 <input type="text" hidden name="input" value="10">
                                 <button name="show">10</button>
@@ -331,21 +346,31 @@ if( isset($_POST['edit']) ){
                             </form>
 
                             <form method="post">
-                                <input type="text" hidden name="input" value="">
+                                <input type="text" hidden name="input" value="All">
                                 <button name="show">All</button>
                             </form>
                         </div>
                     </div>
-                    <!-- <select name="" id="">
-                        <option value="1">10</option>
-                        <option value="1">25</option>
-                        <option value="1">50</option>
-                        <option value="1">100</option>
-                        <option value="1">All</option>
-                    </select> -->
                     <span>entries</span>
                 </div>
-                <div class="tools">
+
+                <div class="kosong-bro"></div>
+            </div>
+            <!-- search -->
+            <div class="row col-2" style="position: relative;">
+            
+                <form method="post">
+                    <div class="row col-2">
+                        <div class="input-group">
+                            <input type="text" name="search-value" placeholder="search" style="height: auto;">
+                        </div>
+                        <div class="input-submit">
+                            <button name="search">Search</button>
+                        </div>
+                    </div>
+                </form>
+            
+                <div class="tools" style="position: absolute; bottom: 12px; right: 0;">
                     <div class="input-submit">
                         <form method="post">
                             <button class="btn" name="exportExcel">Excel</button>
@@ -407,7 +432,9 @@ if( isset($_POST['edit']) ){
                 </table>
             </div>
             <div class="page">
+                <!-- edit here -->
                 <?php
+                    if(!isset($value)){
                         $queryAll = "SELECT * FROM product";
                         $produk = $db->query($queryAll);
                         $produk = $db->resultSet();
@@ -417,16 +444,18 @@ if( isset($_POST['edit']) ){
                             for($i = 1; $i <= $page; $i++) { ?>
                                 <form method="post">
                                     <input value='<?= $i ?>' hidden name='page-count'>
-                                    <button name="submit-page"><?= $i ?></button>
+                                    <button class="product-<?= $i ?>" name="submit-page"><?= $i ?></button>
                                 </form>
                             <?php }
                         }
-                    ?>
+                    }
+                ?>
 
             </div>
         </div>
     </div>
 </div>
+<div class="mt-1"></div>
 <!-- eidt view -->
 <?php 
 if(isset($_GET['edit'])) { 
@@ -470,10 +499,11 @@ if(isset($data[0])){
                             <label for="category">Kategori</label>
                             <select name="category" id="category">
                                 <option value="<?= $data[0]['category']; ?>"><?= $data[0]['category']; ?></option>
-                                <option value="Makanan">Makanan</option>
-                                <option value="Minuman">Minuman</option>
-                                <option value="Kue">Kue</option>
-                                <option value="Kerajinan">Kerajinan</option>
+                                <!-- show all category -->
+                                <?php foreach($category as $row) : ?>
+                                    <option value="<?= $row['name']; ?>"><?= $row['name']; ?></option>
+                                <?php endforeach; ?>
+                                    
                             </select>
                         </div>
                     </div>
@@ -492,9 +522,9 @@ if(isset($data[0])){
                             <label for="type">Type</label>
                             <select name="type" id="type">
                                 <option value="<?= $data[0]['type']; ?>"><?= $data[0]['type']; ?></option>
-                                <option value="Pokok">Pokok</option>
-                                <option value="Bumbu">Bumbu</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <?php foreach( $type as $row ) : ?>
+                                    <option value="<?= $row['name']; ?>"><?= $row['name']; ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="input-group">

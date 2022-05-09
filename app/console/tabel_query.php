@@ -103,3 +103,31 @@ $tabel_transaksi = "CREATE TABLE IF NOT EXISTS transaksi (
     FOREIGN KEY (user_id) REFERENCES user(id),
     FOREIGN KEY (barang_id) REFERENCES product(id)
 )";
+
+
+/* ----------------------
+ * | tabel kategory     |
+ * ---------------------- 
+ * menambah tabel kategory  
+ */
+$tabel_kategory = "CREATE TABLE IF NOT EXISTS kategory (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)";
+
+
+/* ----------------------
+ * | tabel type         |
+ * ---------------------- 
+ * menambah tabel type  
+ */
+$tabel_type = "CREATE TABLE IF NOT EXISTS type (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+)";

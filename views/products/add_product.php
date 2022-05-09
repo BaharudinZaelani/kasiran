@@ -45,6 +45,16 @@ if( isset($_POST['tambah']) ) {
     }
 }
 
+// get kategory
+$queryKat = "SELECT * FROM kategory";
+$db->query($queryKat);
+$kategory = $db->resultset();
+
+// get type
+$queryType = "SELECT * FROM type";
+$db->query($queryType);
+$type = $db->resultset();
+
 ?>
 <!-- scoped style -->
 <style>
@@ -77,9 +87,10 @@ if( isset($_POST['tambah']) ) {
                             <label for="type">type</label>
                             
                             <select name="type" id="type">
-                                <option value="Pokok">Pokok</option>
-                                <option value="Bumbu">Bumbu</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option value="">Pilih type</option>
+                                <?php foreach( $type as $t ) : ?>
+                                    <option value="<?= $t['name'] ?>"><?= $t['name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -87,13 +98,12 @@ if( isset($_POST['tambah']) ) {
                     <!-- baris 3 -->
                     <div class="row col-2">
                         <div class="input-group">
-                            <label for="category">Kategory</label>
+                            <label for="category">Kategori</label>
                             <select name="category" id="category">
-                                <option value="Makanan">Makanan</option>
-                                <option value="Minuman">Minuman</option>
-                                <option value="Kue">Kue</option>
-                                <option value="Kerajinan">Kerajinan</option>
-                                <option value="Lainnya">Lainnya</option>
+                                <option value="">Pilih Kategori</option>
+                                <?php foreach( $kategory as $k ) : ?>
+                                    <option value="<?= $k['name'] ?>"><?= $k['name'] ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                     </div>
@@ -102,7 +112,7 @@ if( isset($_POST['tambah']) ) {
                     <div class="row col-2">
                         <div class="input-group">
                             <label for="quantity">Stok</label>
-                            <input type="number" id="quantity" max="999" min="0" name="quantity" value="0">
+                            <input type="number" id="quantity" min="0" name="quantity" value="0">
                         </div>
                     </div>
 
@@ -110,27 +120,16 @@ if( isset($_POST['tambah']) ) {
                     <div class="row col-2">
                         <div class="input-group">
                             <label for="tax">tax</label>
-                            <input type="number" id="tax" max="999999" min="0" name="tax" value="0">
+                            <input type="number" id="tax" min="0" name="tax" value="0">
                         </div>
                     </div>
 
                     <!-- baris 5 -->
-                    <!-- <div class="row col-2">
-                        <div class="input-group">
-                            <label for="method">Method</label>
-                            <select name="method" id="method">
-                                <option value="Cash">Cash</option>
-                                <option value="Debit">Debit</option>
-                                <option value="Credit">Credit</option>
-                            </select>
-                        </div>
-                    </div> -->
                     
-                    <!-- baris 6 -->
                     <div class="row col-2">
                         <div class="input-group">
                             <label for="price">Harga Beli</label>
-                            <input type="number" id="price" max="999999" min="0" name="cost" value="0">
+                            <input type="number" id="price" min="0" name="cost" value="0">
                         </div>
                     </div>
 
@@ -138,7 +137,7 @@ if( isset($_POST['tambah']) ) {
                     <div class="row col-2">
                         <div class="input-group">
                             <label for="priceb">Harga Jual</label>
-                            <input type="number" id="priceb" max="999999" min="0" name="price" value="0">
+                            <input type="number" id="priceb" min="0" name="price" value="0">
                         </div>
                     </div>
                     

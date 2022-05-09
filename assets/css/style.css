@@ -69,6 +69,11 @@ form {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 12px;
 }
+.row.col-auto {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(0, 150px));
+    grid-gap: 12px;
+}
 
 /* color */
 .primary {
@@ -77,6 +82,25 @@ form {
 }
 
 /* tabel */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th {
+    background-color: #515151;
+    color: #fff;
+    padding: 12px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    /* border: 1px solid #ccc; */
+    border-bottom: none;
+    border-top: none;
+}
+tr:hover {
+    background-color: #51515130;
+}
 .tabel {
     width: 100%;
     border-collapse: collapse;
@@ -147,6 +171,9 @@ form {
 .mt-1 {
     margin-top: 12px;
 }
+.mt-2 {
+    margin-top: 34px;
+}
 .p-1 {
     padding: 12px;
 }
@@ -191,6 +218,7 @@ form {
     transform: scale(0.9) !important;
 }
 .input-group {
+    position: relative;
     margin-bottom: 12px;
 }
 .input-group label{
@@ -217,4 +245,13 @@ form {
 }
 .input-submit button:hover, .input-submit a:hover {
     opacity: 1;
+}
+.input-group button {
+    position: absolute;
+    top: 50%;
+    right: 22px;
+    transform: translateY(-50%);
+    background-color: transparent !important;
+    border: none;
+    cursor: pointer;
 }

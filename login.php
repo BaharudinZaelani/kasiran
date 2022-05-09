@@ -156,7 +156,7 @@ if( isset($_POST['login']) ) {
                         <div class="label">    
                             <label for="username">Email</label>
                         </div>
-                        <input type="text" name="username" id="username" placeholder="..." value="<?= $_SESSION['username']; ?>">
+                        <input autofocus type="text" name="username" id="username" placeholder="..." value="<?= $_SESSION['username']; ?>">
                     </div>
                     <!-- password -->
                     <div class="input">

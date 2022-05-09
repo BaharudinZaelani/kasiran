@@ -4,7 +4,7 @@ include 'app/console/ConsoleDatabase.php';
 include 'app/console/tabel_query.php';
 
 use Carbon\Carbon;
-
+$app = new App();
 $db = new Database();
 $consolDb = new ConsoleDatabase();
 
@@ -46,45 +46,46 @@ if ( $key == '--setup-tb' ) {
         if( $key == '1' ){
             $db->query($tabel_user);
             $db->execute();
-            echo  "[Kasiran] Table user has been created\n";
+            echo  "[". NAME ."] Table user has been created\n";
 
             $db->query($tabel_backup_log);
             $db->execute();
-            echo  "[Kasiran] Table backup_log has been created\n";
+            echo  "[". NAME ."] Table backup_log has been created\n";
 
             $db->query($tabel_produk);
             $db->execute();
-            echo  "[Kasiran] Table product has been created\n";
+            echo  "[". NAME ."] Table product has been created\n";
 
             $db->query($tabel_user_log);
             $db->execute();
-            echo  "[Kasiran] Table user_log has been created\n";
+            echo  "[". NAME ."] Table user_log has been created\n";
 
             $db->query($action_log);
             $db->execute();
-            echo  "[Kasiran] Table action_log has been created\n";
+            echo  "[". NAME ."] Table action_log has been created\n";
 
             $db->query($tabel_transaksi);            
             $db->execute();
-            echo  "[Kasiran] Table transaksi has been created\n";
+            echo  "[". NAME ."] Table transaksi has been created\n";
 
-            if( !file_exists('migrate') ){
-                mkdir('migrate');
-            }
+            $db->query($tabel_kategory);            
+            $db->execute();
+            echo  "[". NAME ."] Table transaksi has been created\n";
 
-            if( !file_exists('dl') ){
-                mkdir('dl');
-            }
+            // execute table type
+            $db->query($tabel_type);
+            $db->execute();
+            echo  "[". NAME ."] Table type has been created\n";
 
-            if( !file_exists('dl/product') ){
-                mkdir('dl/product');
-            }
+            ( !file_exists('migrate') ) ? mkdir('migrate') : '';
+            ( !file_exists('dl') ) ? mkdir('dl') : '';
+            ( !file_exists('dl/product') )? mkdir('dl/product') : '';
         }else if ( $key == '2' ){
             $db->query("SELECT * FROM user WHERE username = 'admin'");
             $users = $db->resultset();
             if( empty($users) ){
                 new User(
-                    '', 
+                    null,
                     'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
                     'Admin', 
                     'admin', 
@@ -92,7 +93,7 @@ if ( $key == '--setup-tb' ) {
                     'admin', 
                     '081234567890', 
                     'Admin', 
-                    'Jl. Kebon Jeruk No. 1', 
+                    'Jl. kapitan Cikundul Girang', 
                     Carbon::now(), 
                     ''
                 );
@@ -123,4 +124,32 @@ if ( $key == '--setup-tb' ) {
             print "Pilihan tidak ada !\n";
         }
     }
+}
+
+if( $key == 'seed' ){
+    // id	
+    // image	
+    // name	
+    // username	
+    // email	
+    // password	
+    // no_tlp	
+    // role	
+    // alamat	
+    // created_at	
+    // updated_at
+    $user = new User(
+        null,
+        'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
+        'Baharudin Zaelani', 
+        'bahar', 
+        'bahar@gmail.com', 
+        'bahar', 
+        '081234567890', 
+        'Admin', 
+        'Jl. kapitan Cikundul Girang', 
+        Carbon::now(), 
+        ''
+    );
+    echo  "[Kasiran] Admin has been created\n";
 }

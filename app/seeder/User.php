@@ -30,10 +30,21 @@ class User {
     }
 
     public function addUser(){
-        $db = new Database();
-        $sql = "INSERT INTO user (image, name, username, email, password, no_tlp, role, alamat, created_at, updated_at) VALUES ('$this->image', '$this->name', '$this->username', '$this->email', '$this->password', '$this->no_tlp', '$this->role', '$this->alamat', '$this->created_at', '$this->updated_at')";
+        global $db;
+        // query not same email
+        
+        $sql = "
+        INSERT INTO user (image, name, username, email, password, no_tlp, role, alamat, created_at, updated_at)
+        SELECT * FROM (SELECT '$this->image', '$this->name', '$this->username', '$this->email', '$this->password', '$this->no_tlp', '$this->role', '$this->alamat', '$this->created_at', '$this->updated_at') As
+        tmp
+        WHERE NOT EXISTS (
+            SELECT email FROM user WHERE email = '$this->email'
+        ) LIMIT 1;
+        ";
+        
         $db->query($sql);
         $db->execute();
+        return $db->rowCount();
     }
 
     public function all() {

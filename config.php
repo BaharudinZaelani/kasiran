@@ -59,7 +59,7 @@ if( $curent == "dark" ){
 }
 
 // product config
-$show = 10;
+$show = 5;
 $page = 1;
 define("PRODUCT_SHOW", $show);
 define("PRODUCT_PAGE", $page);
