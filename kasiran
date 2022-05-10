@@ -81,43 +81,51 @@ if ( $key == '--setup-tb' ) {
             ( !file_exists('dl') ) ? mkdir('dl') : '';
             ( !file_exists('dl/product') )? mkdir('dl/product') : '';
         }else if ( $key == '2' ){
-            $db->query("SELECT * FROM user WHERE username = 'admin'");
-            $users = $db->resultset();
-            if( empty($users) ){
-                new User(
-                    null,
-                    'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
-                    'Admin', 
-                    'admin', 
-                    'admin@gmail.com', 
-                    'admin', 
-                    '081234567890', 
-                    'Admin', 
-                    'Jl. kapitan Cikundul Girang', 
-                    Carbon::now(), 
-                    ''
-                );
-                echo  "[Kasiran] Admin has been created\n";
-            }
+            $admin = new User(
+                null,
+                'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
+                'Baharudin Admin', 
+                'baharadmin', 
+                'baharadmin@gmail.com', 
+                'baharadmin', 
+                '081234567890', 
+                'Admin', 
+                'Jl. kapitan Cikundul Girang', 
+                Carbon::now(), 
+                ''
+            );
+            echo  "[Kasiran] Admin has been created\n";
+
             
-            $db->query("SELECT * FROM user WHERE username = 'kasir'");
-            $users = $db->resultset();
-            if( empty($users) ){
-                new User(
-                    '', 
-                    'https://i.pinimg.com/originals/a7/4b/9c/a74b9c1a194f69d3c89a016bda1a32fa.jpg', 
-                    'Kasir zaw', 
-                    'kasir', 
-                    'kasir@gmail.com', 
-                    'kasir', 
-                    '081234567890', 
-                    'Kasir', 
-                    'Jl. Cikundul Vilage No. 1', 
-                    Carbon::now(), 
-                    ''
-                );
-                echo  "[Kasiran] Kasir has been created\n";
-            }
+            $kasir = new User(
+                null,
+                'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
+                'Baharudin Kasir', 
+                'baharkasir', 
+                'baharkasir@gmail.com', 
+                'baharkasir', 
+                '081234567890', 
+                'Kasir', 
+                'Jl. kapitan Cikundul Girang', 
+                Carbon::now(), 
+                ''
+            );
+            echo  "[Kasiran] Kasir has been created\n";
+
+            $supplier = new User(
+                null,
+                'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
+                'Baharudin Supplier', 
+                'baharsupplier', 
+                'baharsupplier@gmail.com', 
+                'baharsupplier', 
+                '081234567890', 
+                'Supplier', 
+                'Jl. kapitan Cikundul Girang', 
+                Carbon::now(), 
+                ''
+            );
+            echo  "[Kasiran] Supplier has been created\n";
         }else if ( $key == '3' ) {
             break;
         }else {
@@ -141,15 +149,15 @@ if( $key == 'seed' ){
     $user = new User(
         null,
         'https://i.pinimg.com/736x/b8/0d/16/b80d16b65400b5b3a7d069cacfa4fe97.jpg', 
-        'Baharudin Zaelani', 
-        'bahar', 
-        'bahar@gmail.com', 
-        'bahar', 
+        'Baharudin Supplier', 
+        'baharsupplier', 
+        'baharsupplier@gmail.com', 
+        'baharsupplier', 
         '081234567890', 
         'Admin', 
         'Jl. kapitan Cikundul Girang', 
         Carbon::now(), 
         ''
     );
-    echo  "[Kasiran] Admin has been created\n";
+    echo  "[Kasiran] Supplier has been created\n";
 }

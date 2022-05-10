@@ -27,7 +27,20 @@ if( isset($_POST['login']) ) {
             $error = true;
         }
     }else {
-        $error = true;
+        // check if the email exists
+        $getAdmin = "SELECT * FROM `user` WHERE `username` = '". $username . "'";
+        $database->query($getAdmin);
+        $admin = $database->single();
+        if( $admin ){
+            if( password_verify($password, $admin['password']) ){
+                $_SESSION['admin'] = $admin;
+                header('Location: index.php');
+            } else {
+                $error = true;
+            }
+        } else {
+            $error = true;
+        }
     }
 }
 
@@ -144,7 +157,7 @@ if( isset($_POST['login']) ) {
             <h1><?= NAME; ?> - Login</h1>
             <?php if($error) : ?>
                 <div class="error">
-                    <span>Invalid email or password</span>
+                    <span>Invalid username or password</span>
                 </div>
             <?php endif;?>
         </div>
@@ -154,7 +167,7 @@ if( isset($_POST['login']) ) {
                     <!-- email -->
                     <div class="input">
                         <div class="label">    
-                            <label for="username">Email</label>
+                            <label for="username">Email/Username</label>
                         </div>
                         <input autofocus type="text" name="username" id="username" placeholder="..." value="<?= $_SESSION['username']; ?>">
                     </div>

@@ -32,14 +32,16 @@ include 'views/header.php';
         <div class="side-body">
             <div class="list-nav">
                 <ul>
-                    <li class="list-item">
-                        <a class="title" href="<?= BASE; ?>?key=pos">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
-                                <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
-                            </svg>
-                            POS
-                        </a> 
-                    </li>
+                    <?php if( $_SESSION['admin']['role'] == 'Admin' || $_SESSION['admin']['role'] == 'Kasir' ) : ?>
+                        <li class="list-item">
+                            <a class="title" href="<?= BASE; ?>?key=pos">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grid-fill" viewBox="0 0 16 16">
+                                    <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z"/>
+                                </svg>
+                                POS
+                            </a> 
+                        </li>
+                    <?php endif; ?>
                     <li class="list-item">
                         <a class="title text-light" href="<?= BASE; ?>/">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-speedometer2" viewBox="0 0 16 16">
@@ -69,23 +71,27 @@ include 'views/header.php';
                             </div>
                         </li>
                     <?php endif; ?>
-                    <li class="list-item">
-                        <div class="dropdown">
-                            <div class="title">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
-                                    <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
-                                </svg> 
-                                PRODUK
-                            </div> 
-                            <div class="sub-nav hide">
-                                <ul>
-                                    <li><a href="<?= BASE; ?>?tools=product-add" class="text-light">Tambah Products</a></li>
-                                    <li ><a href="<?= BASE; ?>?tools=product-list" class="text-light">Daftar Products</a></li>
-                                    <li><a href="<?= BASE; ?>?tools=kategory" class="text-light">Kategory dan Type</a></li>
-                                </ul>
+                    <?php if( $_SESSION['admin']['role'] == 'Admin' || $_SESSION['admin']['role'] == 'Supplier' ) : ?>
+                        <li class="list-item">
+                            <div class="dropdown">
+                                <div class="title">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket" viewBox="0 0 16 16">
+                                        <path d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1v4.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 13.5V9a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h1.217L5.07 1.243a.5.5 0 0 1 .686-.172zM2 9v4.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V9H2zM1 7v1h14V7H1zm3 3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 4 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 6 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3A.5.5 0 0 1 8 10zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5zm2 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 1 .5-.5z"/>
+                                    </svg> 
+                                    PRODUK
+                                </div> 
+                                <div class="sub-nav hide">
+                                    <ul>
+                                        <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
+                                            <li ><a href="<?= BASE; ?>?tools=product-list" class="text-light">Daftar Products</a></li>
+                                        <?php endif;?>
+                                        <li><a href="<?= BASE; ?>?tools=kategory" class="text-light">Kategory dan Type</a></li>
+                                        <li><a href="<?= BASE; ?>?tools=product-add" class="text-light">Tambah Products</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    <?php endif; ?>
                     <?php if( $_SESSION['admin']['role'] == 'Admin' ) : ?>
                         <li class="list-item">
                             <div class="dropdown">

@@ -64,6 +64,10 @@ form {
 }
 
 /* grid */
+.flex.align-center {
+    display: flex;
+    align-items: center;
+}
 .row.col-2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -82,23 +86,22 @@ form {
 }
 
 /* tabel */
-table {
+.table {
     border-collapse: collapse;
-    width: 100%;
+    width: 100% !important;
 }
-th {
+.table th {
     background-color: #515151;
     color: #fff;
     padding: 12px;
 }
-th, td {
+.table th, .table td {
     padding: 12px;
     text-align: left;
-    /* border: 1px solid #ccc; */
     border-bottom: none;
     border-top: none;
 }
-tr:hover {
+.table tr:hover {
     background-color: #51515130;
 }
 .tabel {
@@ -245,13 +248,4 @@ tr:hover {
 }
 .input-submit button:hover, .input-submit a:hover {
     opacity: 1;
-}
-.input-group button {
-    position: absolute;
-    top: 50%;
-    right: 22px;
-    transform: translateY(-50%);
-    background-color: transparent !important;
-    border: none;
-    cursor: pointer;
 }

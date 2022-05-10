@@ -18,9 +18,9 @@ if( isset($_POST['tambah']) ) {
     $image = $upload['to'];
 
     // add log for user
-    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], 'Menambahkan produk baru', $created);
+    $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], 'Menambahkan produk baru' . $name , $created);
 
-    $query = "INSERT INTO product (name, image, type, category, quantity, tax, cost, price, created_at, updated_at) VALUES ('$name', '$image', '$type', '$category', '$quantity', '$tax', '$cost', '$price', '$created', NULL)";
+    $query = "INSERT INTO product (name, image, type, category, quantity, first_quantity, tax, cost, price, created_at, updated_at) VALUES ('$name', '$image', '$type', '$category', '$quantity','$quantity', '$tax', '$cost', '$price', '$created', NULL)";
     $db->query($query);
     if( $db->execute() AND $upload['status'] ) {
         echo '<script>
@@ -45,6 +45,8 @@ if( isset($_POST['tambah']) ) {
     }
 }
 
+$app->forSupplier();
+
 // get kategory
 $queryKat = "SELECT * FROM kategory";
 $db->query($queryKat);
@@ -58,7 +60,11 @@ $type = $db->resultset();
 ?>
 <!-- scoped style -->
 <style>
-    
+    .persen {
+        display: grid;
+        height: 100%;
+        align-items: center;
+    }
 </style>
 <!-- html -->
 <div>
@@ -119,8 +125,16 @@ $type = $db->resultset();
                     <!-- baris 5 -->
                     <div class="row col-2">
                         <div class="input-group">
-                            <label for="tax">tax</label>
-                            <input type="number" id="tax" min="0" name="tax" value="0">
+                            <div class="row col-2">
+                                <div>
+                                    <label for="tax">tax</label>
+                                    <input type="number" id="tax" min="0" name="tax" value="0">
+                                </div>
+                                <div class="persen">
+                                    <div></div>
+                                    <h2>%</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

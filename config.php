@@ -26,12 +26,14 @@ define("DB_NAME", "kasiran");
 
 // Apliaction name
 define("NAME", "Kasiran");
-
-// aplication color
+define("TELEPHONE", "08381240421");
+define("ADDRESS", "JL Kapitan Cikundul Girang, Kota Sukabumi");
 define('LOGO', '/assets/img/logo.png');
 define('LOGO_WEB', '/assets/img/logo_web.png');
 define('TIMEZONE', 'Asia/Jakarta');
-$curent = "custom";
+
+// aplication color
+$curent = "dark";
 if( $curent == "dark" ){
     define("SIDE_COLOR", "#fff");
     define("BG_COLOR", "#1c1c1c");
@@ -51,7 +53,7 @@ if( $curent == "dark" ){
     define("BG_COLOR_THIRD", "#CEDCC3");
     define("BG_COLOR_FOURTH", "#EFF7D3");
 }else if( $curent == "custom" ){
-    define("SIDE_COLOR", "#fff"); // custom
+    define("SIDE_COLOR", "#000"); // custom
     define("BG_COLOR", "#535A3B"); // custom
     define("BG_COLOR_SECOND", "#A7B99E"); // custom
     define("BG_COLOR_THIRD", "#CEDCC3"); // custom
@@ -59,7 +61,7 @@ if( $curent == "dark" ){
 }
 
 // product config
-$show = 5;
+$show = 10;
 $page = 1;
 define("PRODUCT_SHOW", $show);
 define("PRODUCT_PAGE", $page);

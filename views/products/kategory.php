@@ -5,6 +5,8 @@
 $query = "SELECT * FROM kategory";
 $db->query($query);
 $kategory = $db->resultset();
+$app->forSupplier();
+
 
 // add kategory
 if (isset($_POST['add_kategory'])) {

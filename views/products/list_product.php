@@ -5,10 +5,12 @@ use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Common\Entity\Style\Border;
 use Carbon\Carbon as time;
+$app->forAdmin();
+
 
 $file = new Fileuploader();
 
-$uri = $_SERVER['REQUEST_URI'];
+$uri = '?tools=product-list';
 
 // edit page
 if( isset($_POST['submit-page']) ) {
@@ -22,6 +24,10 @@ if( isset($_POST['search']) ){
     $value = $_POST['search-value'];
     $queryData = "SELECT * FROM `product` WHERE `name` LIKE '%$value%'";
 }
+
+// get product
+$produk = $db->query($queryData);
+$result = $db->resultSet();
 
 // edit show
 if( isset($_POST['show']) ){
@@ -151,6 +157,7 @@ if( isset($_POST['edit']) ){
     $cost = $_POST['cost'];
     $price = $_POST['price'];
     $tax = $_POST['tax'];
+    $discount = $_POST['discount'];
     // upload file
     if( $_FILES['image']['name'] !== '' ){
         // unlink($image);
@@ -161,7 +168,7 @@ if( isset($_POST['edit']) ){
     }
 
     $app->actionLog($_SESSION['admin']['id'], $_SESSION['admin']['name'], "edit produk $name", time::now());
-    $query = "UPDATE product SET name = '$name', type = '$type', category = '$category', quantity = '$quantity', cost = '$cost', price = '$price', tax = '$tax', image = '$image' WHERE id = '$id'";
+    $query = "UPDATE product SET name = '$name', type = '$type', category = '$category', quantity = '$quantity', cost = '$cost', price = '$price', tax = '$tax', discount = '$discount', image = '$image' WHERE id = '$id'";
     $db->query($query);
     if( $db->execute() ){
         echo '<script>
@@ -186,10 +193,6 @@ if( isset($_POST['edit']) ){
     }
     $app->redirect($uri);
 }
-
-// get product
-$produk = $db->query($queryData);
-$result = $db->resultSet();
 
 // get kategori
 $queryKat = "SELECT * FROM kategory";
@@ -379,15 +382,15 @@ $type = $db->resultSet();
                     </div>
                 </div>
             </div>
-            <div class="table">
-                <table>
+            <div>
+                <table class="table">
                     <tr>
                         <th>Gambar</th>
                         <th>Nama Barang</th>
-                        <th>Type</th>
                         <th>Kategory</th>
+                        <th>Type</th>
                         <th>Stok</th>
-                        <th>TAX</th>
+                        <th>Discount</th>
                         <th>Cost</th>
                         <th>Harga</th>
                         <th class="center">Aksi</th>
@@ -400,10 +403,10 @@ $type = $db->resultSet();
                                 </div>
                             </td>
                             <td><?= $row['name']; ?></td>
-                            <td><?= $row['type']; ?></td>
                             <td><?= $row['category']; ?></td>
+                            <td><?= $row['type']; ?></td>
                             <td><?= $row['quantity']; ?></td>
-                            <td><?= $row['tax']; ?>%</td>
+                            <td><?= $row['discount']; ?>%</td>
                             <td><?= number_format($row['cost'],2,",","."); ?></td>
                             <td><?= number_format($row['price'],2,",","."); ?></td>
                             <td>
@@ -479,9 +482,23 @@ if(isset($data[0])){
                             <span>Gambar Yang sedang dipakai !</span>
                             <img src="<?= $data[0]['image']; ?>" alt="">
                         </div>
-                        <div class="input-group">
-                            <label for="image">Gambar</label>
-                            <input type="file" name="image" id="image">
+                        <div>
+                            <div class="input-group">
+                                <label for="image">Gambar</label>
+                                <input type="file" name="image" id="image">
+                            </div>
+                            
+                            <div class="row col-2">
+                                <div>
+                                    <div class="input-group">
+                                        <label for="discount">Discount</label>
+                                        <input type="text" name="discount" id="discount" value="<?= $data[0]['discount']; ?>">
+                                    </div>
+                                </div>
+                                <div class="flex align-center">
+                                    <h1 class="mt-1">%</h1>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row col-2">

@@ -60,7 +60,7 @@ class Produk {
         $db->query($query);
         $result = $db->resultSet();
         foreach ($result as $row) {
-            $total += $row['cost'] * $row['quantity'];
+            $total += $row['cost'] * $row['first_quantity'];
         }
         return $total;
     }
@@ -92,6 +92,20 @@ class Produk {
             $count += $p['quantity'];
         }
         return $count;
+    }
+
+    // count all profit 
+    public function profitCount($date){
+        global $db;
+        $query = "SELECT * FROM transaksi WHERE created_at LIKE '%$date%'";
+        $db->query($query);
+        $db->execute();
+        $transaksi = $db->resultSet();
+        $profit = 0;
+        foreach($transaksi as $t){
+            $profit += $t['total_price'];
+        }
+        return $profit;
     }
 
 }

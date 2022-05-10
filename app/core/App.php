@@ -50,7 +50,19 @@ class App {
     }
 
     public function forAdmin(){
+        if( $_SESSION['admin']['role'] !== 'Admin' ){
+            echo '<script>location.href = "' . BASE . '"</script>';
+        }
+    }
+
+    public function forSupplier(){
         if( $_SESSION['admin']['role'] == 'Kasir' ){
+            echo '<script>location.href = "' . BASE . '"</script>';
+        }
+    }
+    
+    public function forKasir(){
+        if( $_SESSION['admin']['role'] == 'Supplier' ){
             echo '<script>location.href = "' . BASE . '"</script>';
         }
     }

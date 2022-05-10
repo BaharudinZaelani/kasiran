@@ -29,11 +29,11 @@ class User {
         $this->addUser();
     }
 
-    public function addUser(){
+    function addUser(){
         global $db;
         // query not same email
         
-        $sql = "
+        $query = "
         INSERT INTO user (image, name, username, email, password, no_tlp, role, alamat, created_at, updated_at)
         SELECT * FROM (SELECT '$this->image', '$this->name', '$this->username', '$this->email', '$this->password', '$this->no_tlp', '$this->role', '$this->alamat', '$this->created_at', '$this->updated_at') As
         tmp
@@ -42,21 +42,20 @@ class User {
         ) LIMIT 1;
         ";
         
-        $db->query($sql);
+        $db->query($query);
         $db->execute();
-        return $db->rowCount();
     }
 
-    public function all() {
-        $list = [];
-        $db = new Database();
-        $query = "SELECT * FROM user";
-        $db->query($query);
-        $result = $db->execute();
-        while ($row = $result->fetch_assoc()) {
-            $user = new User($row['id'], $row['image'], $row['name'], $row['username'], $row['email'], $row['password'], $row['no_tlp'], $row['role'], $row['alamat'], $row['created_at'], $row['updated_at']);
-            array_push($list, $user);
-        }
-        return $list;
-    }
+    // public function all() {
+    //     $list = [];
+    //     $db = new Database();
+    //     $query = "SELECT * FROM user";
+    //     $db->query($query);
+    //     $result = $db->execute();
+    //     while ($row = $result->fetch_assoc()) {
+    //         $user = new User($row['id'], $row['image'], $row['name'], $row['username'], $row['email'], $row['password'], $row['no_tlp'], $row['role'], $row['alamat'], $row['created_at'], $row['updated_at']);
+    //         array_push($list, $user);
+    //     }
+    //     return $list;
+    // }
 }

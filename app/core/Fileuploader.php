@@ -120,13 +120,13 @@ class Fileuploader {
 
     public function createDataBackup($table){ 
         global $db;
-        $baseQuery = "INSERT INTO `product` (`id`, `name`, `image`, `type`, `category`, `quantity`, `tax`, `cost`, `price`, `for_per_item`, `created_at`, `updated_at`) VALUES ";
+        $baseQuery = "INSERT INTO `product` (`id`, `name`, `image`, `type`, `category`, `quantity`, `first_quantity`, `tax`, `cost`, `price`, `discount`, `created_at`, `updated_at`) VALUES ";
         $query = $db->query("SELECT * FROM `$table`");
         $data = $db->resultSet();
 
         $tmpQuery = '';
         foreach ($data as $key => $value) {
-            $tmpQuery .= "(NULL, '".$value['name']."', '".$value['image']."', '".$value['type']."', '".$value['category']."', '".$value['quantity']."', '".$value['tax']."', '".$value['cost']."', '".$value['price']."', '".$value['for_per_item']."', '".$value['created_at']."', '".$value['updated_at']."'),";
+            $tmpQuery .= "(NULL, '".$value['name']."', '".$value['image']."', '".$value['type']."', '".$value['category']."', '".$value['quantity']."', '".$value['first_quantity']."',  '".$value['tax']."', '".$value['cost']."', '".$value['price']."', '".$value['discount']."', '".$value['created_at']."', '".$value['updated_at']."'),";
         }
         $fn = $this->getTimeNow() . '_' . $table . '.ksr';
         $fileBP = 'dl/backup/'. $fn;
